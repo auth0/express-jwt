@@ -1,0 +1,48 @@
+{
+  "name": "express-jwt",
+  "version": "0.1.0",
+  "description": "JWT authentication middleware.",
+  "keywords": [
+    "auth",
+    "authn",
+    "authentication",
+    "authz",
+    "authorization",
+    "http",
+    "jwt",
+    "token",
+    "oauth",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/auth0/express-jwt.git"
+  },
+  "bugs": {
+    "url": "http://github.com/auth0/express-jwt/issues"
+  },
+  "author": {
+    "name": "Matias Woloski",
+    "email": "matias@auth0.com",
+    "url": "https://www.auth0.com/"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "./lib",
+  "dependencies": {
+    "jsonwebtoken": "~0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "1.x.x"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --reporter spec"
+  }
+}
