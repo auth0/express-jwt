@@ -55,6 +55,46 @@ describe('failure tests', function () {
     });
   });
 
+  it('should throw if audience is not expected', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar', aud: 'expected-audience'}, secret);
+    
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: 'shhhhhh', audience: 'not-expected-audience'})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.message, 'jwt audience invalid. expected: expected-audience');
+    });
+  });
+
+  it('should throw if token is expired', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar', exp: 1382412921 }, secret);
+    
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: 'shhhhhh'})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.message, 'jwt expired');
+    });
+  });
+
+  it('should throw if token issuer is wrong', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar', iss: 'http://foo' }, secret);
+    
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: 'shhhhhh', issuer: 'http://wrong'})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.message, 'jwt issuer invalid. expected: http://foo');
+    });
+  });
+
+
 });
 
 describe('work tests', function () {
