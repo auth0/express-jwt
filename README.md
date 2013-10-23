@@ -28,6 +28,19 @@ For example,
         res.send(200);
       });
 
+You can specify audience and/or issuer as well
+
+    jwt({ secret: 'shhhhhhared-secret',
+          audience: 'http://myapi/protected',
+          issuer: 'http://issuer' })
+
+> If the JWT has an expiration (`exp`), it will be checked.
+
+This module also support tokens signed with public/private key pairs. Instead of a secret, you can specify a Buffer with the public key
+
+    var publicKey = fs.readFileSync('/pat/to/public.pub');
+    jwt({ secret: publicKey });
+
 ## Related Modules
 
 - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) — JSON Web Token sign and verification
@@ -45,4 +58,4 @@ For example,
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2013 Auth0 <[http://auth0.com](http://auth0.com))>
+Copyright (c) 2013 Auth0 <[http://auth0.com](http://auth0.com)>
