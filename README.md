@@ -36,6 +36,12 @@ You can specify audience and/or issuer as well
 
 > If the JWT has an expiration (`exp`), it will be checked.
 
+Optionally you can add paths for the middleware to skip
+    
+    app.use(jwt({ secret: 'shhhhhhared-secret', skip: ['/token']}));
+
+This is especially useful when applying to multiple routes. 
+
 This module also support tokens signed with public/private key pairs. Instead of a secret, you can specify a Buffer with the public key
 
     var publicKey = fs.readFileSync('/pat/to/public.pub');
