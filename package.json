@@ -34,7 +34,7 @@
   ],
   "main": "./lib",
   "dependencies": {
-    "jsonwebtoken": "~0.1.0"
+    "jsonwebtoken": "~0.3.0"
   },
   "devDependencies": {
     "mocha": "1.x.x"
