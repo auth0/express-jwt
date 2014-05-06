@@ -21,7 +21,7 @@ For example,
 
     var jwt = require('express-jwt');
 
-    app.get('/protected', 
+    app.get('/protected',
       jwt({secret: 'shhhhhhared-secret'}),
       function(req, res) {
         if (!req.user.admin) return res.send(401);
@@ -36,11 +36,15 @@ You can specify audience and/or issuer as well
 
 > If the JWT has an expiration (`exp`), it will be checked.
 
+The `secureUrlPrefix` option will only apply the middleware to paths that begin with the prefix.
+
+    app.use(jwt({ secret: 'shhhhhhared-secret', secureUrlPrefix: '/api'}));
+
 Optionally you can add paths for the middleware to skip
-    
+
     app.use(jwt({ secret: 'shhhhhhared-secret', skip: ['/token']}));
 
-This is especially useful when applying to multiple routes. 
+This is especially useful when applying to multiple routes.
 
 This module also support tokens signed with public/private key pairs. Instead of a secret, you can specify a Buffer with the public key
 
