@@ -36,9 +36,9 @@ You can specify audience and/or issuer as well
 
 > If the JWT has an expiration (`exp`), it will be checked.
 
-Optionally you can add paths for the middleware to skip
+Optionally you can add paths for the middleware to skip, these can be strings for an exact match or a RegExp instance.
     
-    app.use(jwt({ secret: 'shhhhhhared-secret', skip: ['/token']}));
+    app.use(jwt({ secret: 'shhhhhhared-secret', skip: ['/token', /^\/othertoken\//]}));
 
 This is especially useful when applying to multiple routes. 
 

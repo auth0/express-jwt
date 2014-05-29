@@ -94,7 +94,6 @@ describe('failure tests', function () {
     });
   });
 
-
 });
 
 describe('work tests', function () {
@@ -109,6 +108,32 @@ describe('work tests', function () {
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: secret})(req, res, function() {
       assert.equal('bar', req.user.foo);
+    });
+  });
+
+  it('should skip matching string paths', function() {
+    req.headers = {};
+    req.url = '/test';
+    expressjwt({secret: 'shhhhhh', skip: ['/test']})(req, res, function(err) {
+      assert.equal(err, undefined);
+    });
+    req.url = '/test/foo';
+    expressjwt({secret: 'shhhhhh', skip: ['/test']})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'credentials_required');
+    });
+  });
+
+  it('should skip matching regex paths', function() {
+    req.headers = {};
+    req.url = '/test/foo';
+    expressjwt({secret: 'shhhhhh', skip: [/^\/test/]})(req, res, function(err) {
+      assert.equal(err, undefined);
+    });
+    req.url = '/not/test/foo';
+    expressjwt({secret: 'shhhhhh', skip: [/^\/test/]})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'credentials_required');
     });
   });
 
