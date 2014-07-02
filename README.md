@@ -78,6 +78,7 @@ app.use(function (err, req, res, next) {
 
 You might want to use this module to identify registered users without preventing unregistered clients to access to some data, you
 can do it using the option _credentialsRequired_:
+
     app.use(jwt({ 
       secret: 'hello world !',
       credentialsRequired: false
