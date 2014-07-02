@@ -47,6 +47,13 @@ This module also support tokens signed with public/private key pairs. Instead of
     var publicKey = fs.readFileSync('/pat/to/public.pub');
     jwt({ secret: publicKey });
 
+You might want to use this module to identify registered users without preventing unregistered clients to access to some data, you
+can do it using the option _credentialsRequired_:
+    app.use(jwt({ 
+      secret: 'hello world !',
+      credentialsRequired: false
+    }));
+
 ## Related Modules
 
 - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) — JSON Web Token sign and verification

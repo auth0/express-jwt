@@ -17,8 +17,8 @@ describe('failure tests', function () {
     }
   });
 
-  it('should throw if no authorization header', function() {
-    expressjwt({secret: 'shhhh'})(req, res, function(err) {
+  it('should throw if no authorization header and credentials are required', function() {
+    expressjwt({secret: 'shhhh', credentialsRequired: true})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'credentials_required');
     });
@@ -109,6 +109,13 @@ describe('work tests', function () {
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: secret})(req, res, function() {
       assert.equal('bar', req.user.foo);
+    });
+  });
+
+  it('should work if no authorization header and credentials are not required', function() {
+    req = {};
+    expressjwt({secret: 'shhhh', credentialsRequired: false})(req, res, function(err) {
+      assert(typeof err === 'undefined');
     });
   });
 
