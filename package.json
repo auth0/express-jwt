@@ -34,6 +34,7 @@
   ],
   "main": "./lib",
   "dependencies": {
+    "express-unless": "0.0.0",
     "jsonwebtoken": "~0.4.1"
   },
   "devDependencies": {

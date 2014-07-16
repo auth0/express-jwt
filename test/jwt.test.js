@@ -10,8 +10,7 @@ describe('failure tests', function () {
   it('should throw if options not sent', function() {
     try {
       expressjwt();
-    }
-    catch(e) {
+    } catch(e) {
       assert.ok(e);
       assert.equal(e.message, 'secret should be set');
     }
@@ -21,6 +20,24 @@ describe('failure tests', function () {
     expressjwt({secret: 'shhhh'})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'credentials_required');
+    });
+  });
+
+  it('support unless skip', function() {
+    req.originalUrl = '/index.html';
+    expressjwt({secret: 'shhhh'}).unless({path: '/index.html'})(req, res, function(err) {
+      assert.ok(!err);
+    });
+  });
+
+  it('should skip on CORS preflight', function() {
+    var corsReq = {};
+    corsReq.method = 'OPTIONS';
+    corsReq.headers = {
+      'access-control-request-headers': 'sasa, sras,  authorization'
+    };
+    expressjwt({secret: 'shhhh'})(corsReq, res, function(err) {
+      assert.ok(!err);
     });
   });
 
@@ -45,7 +62,7 @@ describe('failure tests', function () {
   it('should throw if authorization header is not valid jwt', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
-    
+
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: 'different-shhhh'})(req, res, function(err) {
@@ -58,7 +75,7 @@ describe('failure tests', function () {
   it('should throw if audience is not expected', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar', aud: 'expected-audience'}, secret);
-    
+
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: 'shhhhhh', audience: 'not-expected-audience'})(req, res, function(err) {
@@ -71,7 +88,7 @@ describe('failure tests', function () {
   it('should throw if token is expired', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar', exp: 1382412921 }, secret);
-    
+
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: 'shhhhhh'})(req, res, function(err) {
@@ -84,7 +101,7 @@ describe('failure tests', function () {
   it('should throw if token issuer is wrong', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar', iss: 'http://foo' }, secret);
-    
+
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: 'shhhhhh', issuer: 'http://wrong'})(req, res, function(err) {
@@ -104,7 +121,7 @@ describe('work tests', function () {
   it('should work if authorization header is valid jwt', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
-    
+
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: secret})(req, res, function() {
