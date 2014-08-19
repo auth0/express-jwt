@@ -56,7 +56,7 @@ var jwt = require("express-jwt");
 
 jwt({
     secret: 'shhhhhhared-secret'
-    jwtverify: function (decoded, callback) {
+    jwtverify: function (token, decoded, callback) {
 
         var id = decoded._id;
         
