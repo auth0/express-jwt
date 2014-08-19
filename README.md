@@ -48,6 +48,50 @@ This module also support tokens signed with public/private key pairs. Instead of
     jwt({ secret: publicKey });
 
 
+You can also use a custom callback to generate the **req.user**, if you want to use it to store the data in a different location and read if from another. If you want to read if from redis for example
+
+```javascript
+var client = require('redis').createClient();
+var jwt = require("express-jwt");
+
+jwt({
+    secret: 'shhhhhhared-secret'
+    jwtverify: function (token, decoded, callback) {
+
+        var id = decoded._id;
+        
+        client.get(id, function (err, reply) {
+            if (err) {
+                return done(err, {
+                    "msg": err
+                });
+            }
+
+            if (_.isNull(reply)) {
+                return done(new Error("token_invalid"), {
+                    "msg": "Token doesn't exists, are you sure it hasn't expired or been revoked?"
+                });
+            } else {
+                var data = JSON.parse(reply);
+
+                if (_.isEqual(data._id, id)) {
+                    return done(null, data);
+                } else {
+                    return done(new Error("token_doesnt_exist"), {
+                        "msg": "Token doesn't exists, login into the system so it can generate new token."
+                    });
+                }
+
+            }
+
+    }
+});
+```
+
+This will allow you to store the token in a redis server and keep it small, and fetch the data from the redis store, this way we can have big data stored in redis, and only keep the id in the token generation.
+
+So if we generate the token with only **{ id: id }**, the rest of the data we store in redis, now we can fetch it on checking, also this will store the token in the system so if you delete the token from redis, the token will be invalidated automatically.
+
 ## Related Modules
 
 - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) — JSON Web Token sign and verification
