@@ -36,7 +36,7 @@ You can specify audience and/or issuer as well:
 
 > If the JWT has an expiration (`exp`), it will be checked.
 
-Optionally you can add paths for the middleware to skip:
+Optionally you can make some paths unprotected as follows:
 
     app.use(jwt({ secret: 'shhhhhhared-secret'}).unless({path: ['/token']}));
 
@@ -47,6 +47,19 @@ This module also support tokens signed with public/private key pairs. Instead of
     var publicKey = fs.readFileSync('/pat/to/public.pub');
     jwt({ secret: publicKey });
 
+
+## Error handling
+
+The default behavior is to throw an error when the token is invalid, so you can add your custom logic to manage unauthorized access as follows:
+
+
+```javascript
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') { 
+    res.send(401, 'invalid token...');
+  }
+});
+```
 
 ## Related Modules
 
