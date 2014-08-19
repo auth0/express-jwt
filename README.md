@@ -48,7 +48,7 @@ This module also support tokens signed with public/private key pairs. Instead of
     jwt({ secret: publicKey });
 
 
-## Error handling
+### Error handling
 
 The default behavior is to throw an error when the token is invalid, so you can add your custom logic to manage unauthorized access as follows:
 
