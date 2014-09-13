@@ -55,6 +55,26 @@ var publicKey = fs.readFileSync('/pat/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
+If you are using the `req.user` property for other purposes, you can specify an
+`alias` property in your options. The decoded profile data will be assigned to
+a property with this name instead. For example:
+
+```javascript
+var jwt = require('express-jwt');
+
+app.get('/protected',
+  jwt({
+    secret: 'shhhhhhared-secret',
+    alias: 'profile'
+  }),
+  function(req, res) {
+    // req.user is left unmodified
+    if (!req.profile.admin) return res.send(401);
+    res.send(200);
+  });
+```
+
+
 
 ### Error handling
 

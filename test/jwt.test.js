@@ -129,4 +129,19 @@ describe('work tests', function () {
     });
   });
 
+  it('should assign profile data to specified alias', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({ foo: 'bar' }, secret);
+    var options = {
+      secret: secret,
+      alias: 'profile'
+    };
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt(options)(req, res, function() {
+      assert.equal('bar', req.profile.foo);
+    });
+  });
+
 });
