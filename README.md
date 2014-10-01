@@ -55,6 +55,12 @@ var publicKey = fs.readFileSync('/pat/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
+By default, the decoded token is attached to `req.user` but can be configured with the `userProperty` option.
+
+```javascript
+jwt({ secret: publicKey, userProperty: 'auth' });
+```
+
 
 ### Error handling
 
@@ -63,7 +69,7 @@ The default behavior is to throw an error when the token is invalid, so you can 
 
 ```javascript
 app.use(function (err, req, res, next) {
-  if (err.name === 'UnauthorizedError') { 
+  if (err.name === 'UnauthorizedError') {
     res.send(401, 'invalid token...');
   }
 });
