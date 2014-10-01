@@ -129,4 +129,15 @@ describe('work tests', function () {
     });
   });
 
+  it('should set userProperty if option provided', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: secret, userProperty: 'auth'})(req, res, function() {
+      assert.equal('bar', req.auth.foo);
+    });
+  });
+
 });
