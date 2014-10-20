@@ -6,6 +6,7 @@ var expressjwt = require('../lib');
 describe('failure tests', function () {
   var req = {};
   var res = {};
+  res.setHeader = function(header) {};
 
   it('should throw if options not sent', function() {
     try {
