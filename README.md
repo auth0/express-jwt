@@ -2,10 +2,10 @@
 
 [![Build](https://travis-ci.org/auth0/express-jwt.png)](http://travis-ci.org/auth0/express-jwt)
 
-Middleware that validates JsonWebTokens and set `req.user`.
+Middleware that validates JsonWebTokens and sets `req.user`.
 
 This module lets you authenticate HTTP requests using JWT tokens, in your Node.js
-applications.  JWT tokens are typically used protect API endpoints, and are
+applications.  JWT tokens are typically used to protect API endpoints, and are
 often issued using OpenID Connect.
 
 ## Install
