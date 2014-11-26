@@ -1,6 +1,6 @@
 {
   "name": "express-jwt",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "JWT authentication middleware.",
   "keywords": [
     "auth",
@@ -35,7 +35,7 @@
   "main": "./lib",
   "dependencies": {
     "express-unless": "0.0.0",
-    "jsonwebtoken": "~1.1.1"
+    "jsonwebtoken": "~1.2.0"
   },
   "devDependencies": {
     "mocha": "1.x.x"
