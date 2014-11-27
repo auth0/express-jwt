@@ -62,6 +62,20 @@ By default, the decoded token is attached to `req.user` but can be configured wi
 jwt({ secret: publicKey, userProperty: 'auth' });
 ```
 
+### Access token in the query string
+
+You might want to send the access token in the request query string where sending
+a header is hard, e.g. in an html img element.
+
+You can enable this using the option _queryAccessTokenEnabled_, and also configure the query param name with the option _queryAccessTokenName_, which defaults to 'accessToken'.
+
+    app.use(jwt({
+      secret: 'hello world !',
+      queryAccessTokenEnabled: true,
+      queryAccessTokenName: 'jwt'
+    }));
+
+Now also requests of the format http://example.com?jwt=<token> will be authenticated.
 
 ### Error handling
 
@@ -79,7 +93,7 @@ app.use(function (err, req, res, next) {
 You might want to use this module to identify registered users without preventing unregistered clients to access to some data, you
 can do it using the option _credentialsRequired_:
 
-    app.use(jwt({ 
+    app.use(jwt({
       secret: 'hello world !',
       credentialsRequired: false
     }));
