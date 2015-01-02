@@ -2,6 +2,7 @@ var jwt = require('jsonwebtoken');
 var assert = require('assert');
 
 var expressjwt = require('../lib');
+var UnauthorizedError = require('../lib/errors/UnauthorizedError');
 
 describe('failure tests', function () {
   var req = {};
@@ -111,6 +112,24 @@ describe('failure tests', function () {
     });
   });
 
+  it('should use errors thrown from custom getToken function', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    function getTokenThatThrowsError() {
+      throw new UnauthorizedError('invalid_token', { message: 'Invalid token!' });
+    }
+
+    expressjwt({
+      secret: 'shhhhhh',
+      getToken: getTokenThatThrowsError
+    })(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.message, 'Invalid token!');
+    });
+  });
+
 
 });
 
@@ -144,6 +163,26 @@ describe('work tests', function () {
     req = {};
     expressjwt({secret: 'shhhh', credentialsRequired: false})(req, res, function(err) {
       assert(typeof err === 'undefined');
+    });
+  });
+
+  it('should work with a custom getToken function', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req.headers = {};
+    req.query = {};
+    req.query.token = token;
+
+    function getTokenFromQuery(req) {
+      return req.query.token;
+    }
+
+    expressjwt({
+      secret: secret,
+      getToken: getTokenFromQuery
+    })(req, res, function() {
+      assert.equal('bar', req.user.foo);
     });
   });
 

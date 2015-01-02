@@ -62,6 +62,25 @@ By default, the decoded token is attached to `req.user` but can be configured wi
 jwt({ secret: publicKey, userProperty: 'auth' });
 ```
 
+A custom function for extracting the token from a request can be specified with
+the `getToken` option. This is useful if you need to pass the token through a
+query parameter or a cookie. You can throw an error in this function and it will
+be handled by `express-jwt`.
+
+```javascript
+app.use(jwt({
+  secret: 'hello world !',
+  credentialsRequired: false,
+  getToken: function fromHeaderOrQuerystring (req) {
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+        return req.headers.authorization.split(' ')[1];
+    } else if (req.query && req.query.token) {
+      return req.query.token;
+    }
+    return null;
+  }
+}));
+```
 
 ### Error handling
 
@@ -79,7 +98,7 @@ app.use(function (err, req, res, next) {
 You might want to use this module to identify registered users without preventing unregistered clients to access to some data, you
 can do it using the option _credentialsRequired_:
 
-    app.use(jwt({ 
+    app.use(jwt({
       secret: 'hello world !',
       credentialsRequired: false
     }));
