@@ -161,8 +161,15 @@ describe('work tests', function () {
 
   it('should work if no authorization header and credentials are not required', function() {
     req = {};
-    expressjwt({secret: 'shhhh', credentialsRequired: false})(req, res, function(err) {
+    expressjwt({ secret: 'shhhh', credentialsRequired: false })(req, res, function(err) {
       assert(typeof err === 'undefined');
+    });
+  });
+
+  it('should not work if no authorization header', function() {
+    req = {};
+    expressjwt({ secret: 'shhhh' })(req, res, function(err) {
+      assert(typeof err !== 'undefined');
     });
   });
 
