@@ -172,8 +172,9 @@ describe('work tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({ secret: 'shhhh', credentialsRequired: false })(req, res, function(err) {
+    expressjwt({ secret: secret, credentialsRequired: false })(req, res, function(err) {
       assert(typeof err === 'undefined');
+      assert(typeof req.user === 'undefined')
     });
   });
 
