@@ -166,6 +166,18 @@ describe('work tests', function () {
     });
   });
 
+  it('should work if token is expired and credentials are not required', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({ secret: secret, credentialsRequired: false })(req, res, function(err) {
+      assert(typeof err === 'undefined');
+      assert(typeof req.user === 'undefined')
+    });
+  });
+
   it('should not work if no authorization header', function() {
     req = {};
     expressjwt({ secret: 'shhhh' })(req, res, function(err) {
