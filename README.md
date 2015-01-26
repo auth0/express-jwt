@@ -135,6 +135,4 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## License
 
-[The MIT License](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2013 Auth0 <[http://auth0.com](http://auth0.com)>
+This project is licensed under the MIT license. See the [LICENSE](LICENSE.txt) file for more info.
