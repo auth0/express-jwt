@@ -56,10 +56,10 @@ var publicKey = fs.readFileSync('/pat/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
-By default, the decoded token is attached to `req.user` but can be configured with the `userProperty` option.
+By default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
 
 ```javascript
-jwt({ secret: publicKey, userProperty: 'auth' });
+jwt({ secret: publicKey, requestProperty: 'auth' });
 ```
 
 A custom function for extracting the token from a request can be specified with
