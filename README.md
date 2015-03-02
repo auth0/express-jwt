@@ -5,7 +5,7 @@
 Middleware that validates JsonWebTokens and sets `req.user`.
 
 This module lets you authenticate HTTP requests using JWT tokens in your Node.js
-applications.  JWTs are typically used protect API endpoints, and are
+applications.  JWTs are typically used to protect API endpoints, and are
 often issued using OpenID Connect.
 
 ## Install
