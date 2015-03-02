@@ -131,6 +131,26 @@ describe('failure tests', function () {
   });
 
 
+  it('should throw error when signature is wrong', function() {
+      var secret = "shhh";
+      var token = jwt.sign({foo: 'bar', iss: 'http://www'}, secret);
+      // manipulate the token
+      var newContent = new Buffer("{foo: 'bar', edg: 'ar'}").toString('base64');
+      var splitetToken = token.split(".");
+      splitetToken[1] = newContent;
+      var newToken = splitetToken.join(".");
+
+      // build request
+      req.headers = [];
+      req.headers.authorization = 'Bearer ' + newToken;
+      expressjwt({secret: secret})(req,res, function(err) {
+          assert.ok(err);
+          assert.equal(err.code, 'invalid_token');
+          assert.equal(err.message, 'invalid signature');
+      });
+  });
+
+
 });
 
 describe('work tests', function () {
