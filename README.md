@@ -83,7 +83,7 @@ app.use(jwt({
 ```
 
 ### Multi-tenancy
-If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, cb)`:
+If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, done)`:
 * `req` (`Object`) - The express `request` object.
 * `payload` (`Object`) - An object with the JWT claims.
 * `done` (`Function`) - A function with signature `function(err, secret)` to be invoked when the secret is retrieved.
@@ -116,6 +116,38 @@ app.get('/protected',
   });
 ```
 
+### Revoked tokens
+It is possible that some tokens will need to be revoked so they cannot be used any longer. You can provide a function as the `isRevoked` option. The signature of the function is `function(req, payload, done)`:
+* `req` (`Object`) - The express `request` object.
+* `payload` (`Object`) - An object with the JWT claims.
+* `done` (`Function`) - A function with signature `function(err, revoked)` to be invoked once the check to see if the token is revoked or not is complete.
+  * `err` (`Any`) - The error that occurred.
+  * `secret` (`Boolean`) - `true` if the JWT is revoked, `false` otherwise.
+
+For example, if the `(iss, jti)` claim pair is used to identify a JWT:
+```javascript
+var jwt = require('express-jwt');
+var data = require('./data');
+var utilities = requre('./utilities');
+
+var isRevokedCallback = function(req, payload, done){
+  var issuer = payload.iss;
+  var tokenId = payload.jti;
+
+  data.getRevokedToken(issuer, tokenId, function(err, token){
+    if (err) { return done(err); }
+    return done(null, !!token);
+  });
+};
+
+app.get('/protected',
+  jwt({secret: shhhhhhared-secret,
+    isRevoked: isRevokedCallback}),
+  function(req, res) {
+    if (!req.user.admin) return res.send(401);
+    res.send(200);
+  });
+```
 
 ### Error handling
 
