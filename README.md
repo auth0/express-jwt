@@ -82,6 +82,41 @@ app.use(jwt({
 }));
 ```
 
+### Multi-tenancy
+If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, cb)`:
+* `req` (`Object`) - The express `request` object.
+* `payload` (`Object`) - An object with the JWT claims.
+* `done` (`Function`) - A function with signature `function(err, secret)` to be invoked when the secret is retrieved.
+  * `err` (`Any`) - The error that occurred.
+  * `secret` (`String`) - The secret to use to verify the JWT.
+
+For example, if the secret varies based on the [JWT issuer](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
+```javascript
+var jwt = require('express-jwt');
+var data = require('./data');
+var utilities = requre('./utilities');
+
+var secretCallback = function(req, payload, done){
+  var issuer = payload.iss;
+
+  data.getTenantByIdentifier(issuer, function(err, tenant){
+    if (err) { return done(err); }
+    if (!tenant) { return done(new Error('missing_secret')); }
+
+    var secret = utilities.decrypt(tenant.secret);
+    done(null, secret);
+  });
+};
+
+app.get('/protected',
+  jwt({secret: secretCallback}),
+  function(req, res) {
+    if (!req.user.admin) return res.send(401);
+    res.send(200);
+  });
+```
+
+
 ### Error handling
 
 The default behavior is to throw an error when the token is invalid, so you can add your custom logic to manage unauthorized access as follows:
