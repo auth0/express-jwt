@@ -51,6 +51,15 @@ describe('failure tests', function () {
     });
   });
 
+  it('should throw if authorization header is not Bearer', function() {
+    req.headers = {};
+    req.headers.authorization = 'Basic foobar';
+    expressjwt({secret: 'shhhh'})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'credentials_bad_scheme');
+    });
+  });
+
   it('should throw if authorization header is not well-formatted jwt', function() {
     req.headers = {};
     req.headers.authorization = 'Bearer wrongjwt';
