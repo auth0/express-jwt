@@ -91,7 +91,7 @@ describe('failure tests', function () {
     expressjwt({secret: 'shhhhhh', audience: 'not-expected-audience'})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
-      assert.equal(err.message, 'jwt audience invalid. expected: expected-audience');
+      assert.equal(err.message, 'jwt audience invalid. expected: not-expected-audience');
     });
   });
 
@@ -117,7 +117,7 @@ describe('failure tests', function () {
     expressjwt({secret: 'shhhhhh', issuer: 'http://wrong'})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
-      assert.equal(err.message, 'jwt issuer invalid. expected: http://foo');
+      assert.equal(err.message, 'jwt issuer invalid. expected: http://wrong');
     });
   });
 
