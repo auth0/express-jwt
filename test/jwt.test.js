@@ -167,7 +167,7 @@ describe('work tests', function () {
   var res = {};
 
   it('should work if authorization header is valid jwt', function() {
-    var secret = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+    var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
     req.headers = {};
@@ -178,7 +178,7 @@ describe('work tests', function () {
   });
 
   it('should work if authorization header is valid with a buffer secret', function() {
-    var secret = new Buffer('');
+    var secret = new Buffer('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
     var token = jwt.sign({foo: 'bar'}, secret);
 
     req.headers = {};
