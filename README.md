@@ -183,22 +183,8 @@ If you have found a bug or if you have a feature request, please report them at 
     $ npm install
     $ npm test
 
-## Credits
-
-- @jfromaniello ([20 contributions](https://github.com/auth0/express-jwt/commits?author=jfromaniello))
-- @woloski ([16 contributions](https://github.com/auth0/express-jwt/commits?author=woloski))
-- @aaronogle ([3 contributions](https://github.com/auth0/express-jwt/commits?author=aaronogle))
-- @mck- ([3 contributions](https://github.com/auth0/express-jwt/commits?author=mck-))
-- @CLevasseur ([2 contributions](https://github.com/auth0/express-jwt/commits?author=CLevasseur))
-- @wiherek5 ([1 contributions](https://github.com/auth0/express-jwt/commits?author=wiherek5))
-- @davis ([1 contributions](https://github.com/auth0/express-jwt/commits?author=davis))
-- @godeatgod ([1 contributions](https://github.com/auth0/express-jwt/commits?author=godeatgod))
-- @nkcmr ([1 contributions](https://github.com/auth0/express-jwt/commits?author=nkcmr))
-- @philosoralphter ([1 contributions](https://github.com/auth0/express-jwt/commits?author=philosoralphter))
-- @iamsebastian ([1 contributions](https://github.com/auth0/express-jwt/commits?author=iamsebastian))
-- @tonytamps ([1 contributions](https://github.com/auth0/express-jwt/commits?author=tonytamps))
-- @dannyrscott ([1 contributions](https://github.com/auth0/express-jwt/commits?author=dannyrscott))
-- @dschenkelman ([1 contributions](https://github.com/auth0/express-jwt/commits?author=dschenkelman))
+## Contributors
+Check them our [here](https://github.com/auth0/express-jwt/graphs/contributors)
 
 ## License
 
