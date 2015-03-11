@@ -177,6 +177,17 @@ describe('work tests', function () {
     });
   });
 
+  it('should work if authorization header is valid with a buffer secret', function() {
+    var secret = new Buffer('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: secret})(req, res, function() {
+      assert.equal('bar', req.user.foo);
+    });
+  });
+
   it('should set userProperty if option provided', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
