@@ -94,7 +94,7 @@ For example, if the secret varies based on the [JWT issuer](http://self-issued.i
 ```javascript
 var jwt = require('express-jwt');
 var data = require('./data');
-var utilities = requre('./utilities');
+var utilities = require('./utilities');
 
 var secretCallback = function(req, payload, done){
   var issuer = payload.iss;
