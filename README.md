@@ -128,7 +128,7 @@ For example, if the `(iss, jti)` claim pair is used to identify a JWT:
 ```javascript
 var jwt = require('express-jwt');
 var data = require('./data');
-var utilities = requre('./utilities');
+var utilities = require('./utilities');
 
 var isRevokedCallback = function(req, payload, done){
   var issuer = payload.iss;
