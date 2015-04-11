@@ -155,10 +155,9 @@ describe('failure tests', function () {
       expressjwt({secret: secret})(req,res, function(err) {
           assert.ok(err);
           assert.equal(err.code, 'invalid_token');
-          assert.equal(err.message, 'invalid signature');
+          assert.equal(err.message, 'invalid token');
       });
   });
-
 
 });
 
