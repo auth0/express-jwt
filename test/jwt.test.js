@@ -165,6 +165,11 @@ describe('work tests', function () {
   var req = {};
   var res = {};
 
+  beforeEach(function() {
+    req = {};
+    res = {};
+  });
+
   it('should work if authorization header is valid jwt', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
@@ -239,6 +244,21 @@ describe('work tests', function () {
     expressjwt({
       secret: secret,
       getToken: getTokenFromQuery
+    })(req, res, function() {
+      assert.equal('bar', req.user.foo);
+    });
+  });
+
+  it('should attempt custom getToken function and fallback to headers if it returns a falsy value', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+
+    expressjwt({
+      secret: secret,
+      getToken: function() { return null; }
     })(req, res, function() {
       assert.equal('bar', req.user.foo);
     });
