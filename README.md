@@ -184,7 +184,7 @@ If you have found a bug or if you have a feature request, please report them at 
     $ npm test
 
 ## Contributors
-Check them our [here](https://github.com/auth0/express-jwt/graphs/contributors)
+Check them out [here](https://github.com/auth0/express-jwt/graphs/contributors)
 
 ## License
 
