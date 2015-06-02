@@ -124,7 +124,7 @@ It is possible that some tokens will need to be revoked so they cannot be used a
 * `payload` (`Object`) - An object with the JWT claims.
 * `done` (`Function`) - A function with signature `function(err, revoked)` to be invoked once the check to see if the token is revoked or not is complete.
   * `err` (`Any`) - The error that occurred.
-  * `secret` (`Boolean`) - `true` if the JWT is revoked, `false` otherwise.
+  * `revoked` (`Boolean`) - `true` if the JWT is revoked, `false` otherwise.
 
 For example, if the `(iss, jti)` claim pair is used to identify a JWT:
 ```javascript
