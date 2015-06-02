@@ -47,7 +47,7 @@ Optionally you can make some paths unprotected as follows:
 app.use(jwt({ secret: 'shhhhhhared-secret'}).unless({path: ['/token']}));
 ```
 
-This is especially useful when applying to multiple routes.
+This is especially useful when applying to multiple routes. `path` can be a string, a regexp or an array of any of those (see [express-unless](https://github.com/jfromaniello/express-unless) for more details).
 
 > If you need additional configuration options for the `.unless` syntax, please see [express-unless](https://github.com/jfromaniello/express-unless).
 
