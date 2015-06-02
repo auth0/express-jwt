@@ -34,7 +34,7 @@
   ],
   "main": "./lib",
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^1.1.0",
     "express-unless": "^0.1.0",
     "jsonwebtoken": "^5.0.0"
   },
