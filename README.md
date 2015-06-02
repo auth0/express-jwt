@@ -49,6 +49,8 @@ app.use(jwt({ secret: 'shhhhhhared-secret'}).unless({path: ['/token']}));
 
 This is especially useful when applying to multiple routes.
 
+> If you need additional configuration options for the `.unless` syntax, please see [express-unless](https://github.com/jfromaniello/express-unless).
+
 This module also support tokens signed with public/private key pairs. Instead of a secret, you can specify a Buffer with the public key
 
 ```javascript
