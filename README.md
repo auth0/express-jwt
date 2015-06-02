@@ -47,9 +47,9 @@ Optionally you can make some paths unprotected as follows:
 app.use(jwt({ secret: 'shhhhhhared-secret'}).unless({path: ['/token']}));
 ```
 
-This is especially useful when applying to multiple routes. `path` can be a string, a regexp or an array of any of those (see [express-unless](https://github.com/jfromaniello/express-unless) for more details).
+This is especially useful when applying to multiple routes. In the example above, `path` can be a string, a regexp, or an array of any of those.
 
-> If you need additional configuration options for the `.unless` syntax, please see [express-unless](https://github.com/jfromaniello/express-unless).
+> For more details on the `.unless` syntax including additional options, please see [express-unless](https://github.com/jfromaniello/express-unless).
 
 This module also support tokens signed with public/private key pairs. Instead of a secret, you can specify a Buffer with the public key
 
