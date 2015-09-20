@@ -49,7 +49,7 @@ app.use(jwt({ secret: 'shhhhhhared-secret'}).unless({path: ['/token']}));
 
 This is especially useful when applying to multiple routes. In the example above, `path` can be a string, a regexp, or an array of any of those.
 
-If you are using a base64 encoded secret, simply allocate a new buffer and specify 'base64' encoding (before using the secret) like the following.
+If you are using a 'base64' encoded secret, simply allocate a new buffer and specify 'base64' encoding (before using the secret) like the following.
 
 ```javascript
 var secret = new Buffer('shhhhhhared-secret', 'base64');
