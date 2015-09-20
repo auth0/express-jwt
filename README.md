@@ -49,6 +49,12 @@ app.use(jwt({ secret: 'shhhhhhared-secret'}).unless({path: ['/token']}));
 
 This is especially useful when applying to multiple routes. In the example above, `path` can be a string, a regexp, or an array of any of those.
 
+If you are using a base64 encoded secret, simply allocate a new buffer and specify 'base64' encoding (before using the secret) like the following.
+
+```javascript
+var secret = new Buffer('shhhhhhared-secret', 'base64');
+app.use(jwt({ secret: secret}).unless({path: ['/token']}));
+```
 > For more details on the `.unless` syntax including additional options, please see [express-unless](https://github.com/jfromaniello/express-unless).
 
 This module also support tokens signed with public/private key pairs. Instead of a secret, you can specify a Buffer with the public key
@@ -59,6 +65,7 @@ jwt({ secret: publicKey });
 ```
 
 By default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
+
 
 ```javascript
 jwt({ secret: publicKey, requestProperty: 'auth' });
