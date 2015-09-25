@@ -41,6 +41,12 @@ jwt({ secret: 'shhhhhhared-secret',
 
 > If the JWT has an expiration (`exp`), it will be checked.
 
+If you are using a base64 URL-encoded secret, pass a `Buffer` with `base64` encoding as the secret instead of a string:
+
+```javascript
+jwt({ secret: new Buffer('shhhhhhared-secret', 'base64') })
+```
+
 Optionally you can make some paths unprotected as follows:
 
 ```javascript
@@ -59,6 +65,7 @@ jwt({ secret: publicKey });
 ```
 
 By default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
+
 
 ```javascript
 jwt({ secret: publicKey, requestProperty: 'auth' });
