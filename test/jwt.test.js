@@ -176,6 +176,17 @@ describe('work tests', function () {
     });
   });
 
+  it('should work with nested properties', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: secret, requestProperty: 'auth.token'})(req, res, function() {
+      assert.equal('bar', req.auth.token.foo);
+    });
+  });
+
   it('should work if authorization header is valid with a buffer secret', function() {
     var secret = new Buffer('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
     var token = jwt.sign({foo: 'bar'}, secret);
@@ -243,7 +254,7 @@ describe('work tests', function () {
       assert.equal('bar', req.user.foo);
     });
   });
-  
+
   it('should work with a secretCallback function that accepts header argument', function() {
     var secret = 'shhhhhh';
     var secretCallback = function(req, headers, payload, cb) {
