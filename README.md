@@ -26,8 +26,8 @@ var jwt = require('express-jwt');
 app.get('/protected',
   jwt({secret: 'shhhhhhared-secret'}),
   function(req, res) {
-    if (!req.user.admin) return res.send(401);
-    res.send(200);
+    if (!req.user.admin) return res.sendStatus(401);
+    res.sendStatus(200);
   });
 ```
 
@@ -120,8 +120,8 @@ var secretCallback = function(req, payload, done){
 app.get('/protected',
   jwt({secret: secretCallback}),
   function(req, res) {
-    if (!req.user.admin) return res.send(401);
-    res.send(200);
+    if (!req.user.admin) return res.sendStatus(401);
+    res.sendStatus(200);
   });
 ```
 
@@ -153,8 +153,8 @@ app.get('/protected',
   jwt({secret: shhhhhhared-secret,
     isRevoked: isRevokedCallback}),
   function(req, res) {
-    if (!req.user.admin) return res.send(401);
-    res.send(200);
+    if (!req.user.admin) return res.sendStatus(401);
+    res.sendStatus(200);
   });
 ```
 
@@ -166,7 +166,7 @@ The default behavior is to throw an error when the token is invalid, so you can 
 ```javascript
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
-    res.send(401, 'invalid token...');
+    res.status(401).send('invalid token...');
   }
 });
 ```
