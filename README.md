@@ -150,7 +150,7 @@ var isRevokedCallback = function(req, payload, done){
 };
 
 app.get('/protected',
-  jwt({secret: shhhhhhared-secret,
+  jwt({secret: 'shhhhhhared-secret',
     isRevoked: isRevokedCallback}),
   function(req, res) {
     if (!req.user.admin) return res.sendStatus(401);
