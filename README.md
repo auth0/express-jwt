@@ -60,7 +60,7 @@ This is especially useful when applying to multiple routes. In the example above
 This module also support tokens signed with public/private key pairs. Instead of a secret, you can specify a Buffer with the public key
 
 ```javascript
-var publicKey = fs.readFileSync('/pat/to/public.pub');
+var publicKey = fs.readFileSync('/path/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
