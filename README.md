@@ -90,6 +90,20 @@ app.use(jwt({
   }
 }));
 ```
+### Custom Tokens
+The token is used standard Bearer [token], but you can define your own, the function *getToken* is required.
+```javascript
+app.use(jwt({
+  secret: 'hello world !',
+  customTokenHeader: "jwt-token",
+  getToken: function (req) {
+    if (req.headers["jwt-token"]) {
+      return req.headers["jwt-token"];
+    }
+    return null;
+  }
+}));
+```
 
 ### Multi-tenancy
 If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, done)`:
