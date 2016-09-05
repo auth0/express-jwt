@@ -159,6 +159,32 @@ describe('failure tests', function () {
       });
   });
 
+  it('should throw error if token is expired even with when credentials are not required', function() {
+      var secret = 'shhhhhh';
+      var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
+
+      req.headers = {};
+      req.headers.authorization = 'Bearer ' + token;
+      expressjwt({ secret: secret, credentialsRequired: false })(req, res, function(err) {
+          assert.ok(err);
+          assert.equal(err.code, 'invalid_token');
+          assert.equal(err.message, 'jwt expired');
+      });
+  });
+
+  it('should throw error if token is invalid even with when credentials are not required', function() {
+      var secret = 'shhhhhh';
+      var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
+
+      req.headers = {};
+      req.headers.authorization = 'Bearer ' + token;
+      expressjwt({ secret: "not the secret", credentialsRequired: false })(req, res, function(err) {
+          assert.ok(err);
+          assert.equal(err.code, 'invalid_token');
+          assert.equal(err.message, 'invalid signature');
+      });
+  });
+
 });
 
 describe('work tests', function () {
@@ -213,18 +239,6 @@ describe('work tests', function () {
     req = {};
     expressjwt({ secret: 'shhhh', credentialsRequired: false })(req, res, function(err) {
       assert(typeof err === 'undefined');
-    });
-  });
-
-  it('should work if token is expired and credentials are not required', function() {
-    var secret = 'shhhhhh';
-    var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
-
-    req.headers = {};
-    req.headers.authorization = 'Bearer ' + token;
-    expressjwt({ secret: secret, credentialsRequired: false })(req, res, function(err) {
-      assert(typeof err === 'undefined');
-      assert(typeof req.user === 'undefined')
     });
   });
 
