@@ -121,6 +121,7 @@ describe('failure tests', function () {
     expressjwt({secret: 'shhhhhh'})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
+      assert.equal(err.inner.name, 'TokenExpiredError');
       assert.equal(err.message, 'jwt expired');
     });
   });
