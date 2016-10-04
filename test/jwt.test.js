@@ -69,6 +69,15 @@ describe('failure tests', function () {
     });
   });
 
+  it('should throw if jwt is an invalid json', function() {
+    req.headers = {};
+    req.headers.authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.yJ1c2VybmFtZSI6InNhZ3VpYXIiLCJpYXQiOjE0NzEwMTg2MzUsImV4cCI6MTQ3MzYxMDYzNX0.foo';
+    expressjwt({secret: 'shhhh'})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+    });
+  });
+
   it('should throw if authorization header is not valid jwt', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
