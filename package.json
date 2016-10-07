@@ -40,6 +40,7 @@
     "lodash.set": "^4.0.0"
   },
   "devDependencies": {
+    "conventional-changelog": "~1.1.0",
     "mocha": "1.x.x"
   },
   "engines": {
