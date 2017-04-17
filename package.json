@@ -1,6 +1,6 @@
 {
   "name": "express-jwt",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "description": "JWT authentication middleware.",
   "keywords": [
     "auth",
