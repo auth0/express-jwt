@@ -71,6 +71,14 @@ By default, the decoded token is attached to `req.user` but can be configured wi
 jwt({ secret: publicKey, requestProperty: 'auth' });
 ```
 
+The token can also be attached to the `result` object with the `resultProperty` option. This option will override any `requestProperty`.
+
+```javascript
+jwt({ secret: publicKey, resultProperty: 'locals.user' });
+```
+
+Both `resultProperty` and `requestProperty` utilize [lodash.set](https://lodash.com/docs/4.17.2#set) and will accept nested property paths.
+
 A custom function for extracting the token from a request can be specified with
 the `getToken` option. This is useful if you need to pass the token through a
 query parameter or a cookie. You can throw an error in this function and it will
