@@ -10,7 +10,7 @@ often issued using OpenID Connect.
 
 ## Install
 
-    $ npm install express-jwt
+    $ npm install express-jwt -S
 
 ## Usage
 
@@ -21,7 +21,7 @@ to be used by later middleware for authorization and access control.
 For example,
 
 ```javascript
-var jwt = require('express-jwt');
+const jwt = require('express-jwt');
 
 app.get('/protected',
   jwt({secret: 'shhhhhhared-secret'}),
@@ -44,7 +44,7 @@ jwt({ secret: 'shhhhhhared-secret',
 If you are using a base64 URL-encoded secret, pass a `Buffer` with `base64` encoding as the secret instead of a string:
 
 ```javascript
-jwt({ secret: new Buffer('shhhhhhared-secret', 'base64') })
+jwt({ secret: Buffer.from('shhhhhhared-secret', 'base64') })
 ```
 
 Optionally you can make some paths unprotected as follows:
