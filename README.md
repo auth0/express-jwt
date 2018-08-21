@@ -113,7 +113,7 @@ var jwt = require('express-jwt');
 var data = require('./data');
 var utilities = require('./utilities');
 
-var secretCallback = function(req, payload, done){
+var secretCallback = function(req, header, payload, done){
   var issuer = payload.iss;
 
   data.getTenantByIdentifier(issuer, function(err, tenant){
