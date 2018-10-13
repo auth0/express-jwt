@@ -1,6 +1,6 @@
 # express-jwt
 
-[![Build](https://travis-ci.org/auth0/express-jwt.png)](http://travis-ci.org/auth0/express-jwt)
+[![Build](https://travis-ci.org/auth0/express-jwt.png)](https://travis-ci.org/auth0/express-jwt)
 
 Middleware that validates JsonWebTokens and sets `req.user`.
 
@@ -107,7 +107,7 @@ If you are developing an application in which the secret used to sign tokens is 
   * `err` (`Any`) - The error that occurred.
   * `secret` (`String`) - The secret to use to verify the JWT.
 
-For example, if the secret varies based on the [JWT issuer](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
+For example, if the secret varies based on the [JWT issuer](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
 ```javascript
 var jwt = require('express-jwt');
 var data = require('./data');
