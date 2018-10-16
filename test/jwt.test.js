@@ -99,6 +99,22 @@ describe('failure tests', function () {
     });
   });
 
+  it('should include decoded and not user token if jwt decodes but doesn\'t verify', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: 'different-shhhh'})(req, res, function(err) {
+      assert.ok(err);
+      assert.ok(req.decoded)
+      assert.equal(req.user, undefined)
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(req.decoded.foo, 'bar');
+      assert.equal(err.message, 'invalid signature');
+    });
+  });
+
   it('should throw if audience is not expected', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar', aud: 'expected-audience'}, secret);
