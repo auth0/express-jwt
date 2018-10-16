@@ -64,8 +64,9 @@ var publicKey = fs.readFileSync('/path/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
-By default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
+When the token can be decoded _and_ verified, by default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
 
+When the token can be decoded _but not necessarily verified_, by default, the decoded token is attached to `req.decoded` regardless of if an error is thrown. The specific property set can be configured with the `decodedProperty` option. (This can be useful for error handling; see "Error handling" for more info.)
 
 ```javascript
 jwt({ secret: publicKey, requestProperty: 'auth' });
@@ -174,6 +175,12 @@ The default behavior is to throw an error when the token is invalid, so you can 
 ```javascript
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
+    console.log(`error with token: ${err.message}`)
+    if (req.decoded) {
+      console.log(`The following token was decoded, but could not verified: ${req.decoded}`)
+    } else {
+      console.log(`The token could not be decoded`)
+    }
     res.status(401).send('invalid token...');
   }
 });
