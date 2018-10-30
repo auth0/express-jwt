@@ -44,7 +44,7 @@ jwt({ secret: 'shhhhhhared-secret',
 If you are using a base64 URL-encoded secret, pass a `Buffer` with `base64` encoding as the secret instead of a string:
 
 ```javascript
-jwt({ secret: new Buffer('shhhhhhared-secret', 'base64') })
+jwt({ secret: Buffer.from('shhhhhhared-secret', 'base64') })
 ```
 
 Optionally you can make some paths unprotected as follows:

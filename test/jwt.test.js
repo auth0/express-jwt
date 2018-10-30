@@ -162,7 +162,7 @@ describe('failure tests', function () {
       var secret = "shhh";
       var token = jwt.sign({foo: 'bar', iss: 'http://www'}, secret);
       // manipulate the token
-      var newContent = new Buffer("{foo: 'bar', edg: 'ar'}").toString('base64');
+      var newContent = Buffer.from("{foo: 'bar', edg: 'ar'}").toString('base64');
       var splitetToken = token.split(".");
       splitetToken[1] = newContent;
       var newToken = splitetToken.join(".");
@@ -232,7 +232,7 @@ describe('work tests', function () {
   });
 
   it('should work if authorization header is valid with a buffer secret', function() {
-    var secret = new Buffer('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
+    var secret = Buffer.from('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
     var token = jwt.sign({foo: 'bar'}, secret);
 
     req.headers = {};
