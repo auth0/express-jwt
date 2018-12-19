@@ -139,6 +139,26 @@ describe('failure tests', function () {
     });
   });
 
+  it('should check issuer before fetching a secret and throw an error if issuer is wrong', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar', iss: 'http://foo' }, secret);
+
+    var secretCalled = false;
+    var secretCallback = function (req, headers, payload, cb) {
+      secretCalled = true;
+      process.nextTick(function () { return cb(null, secret) });
+    }
+    
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: secretCallback, issuer: 'http://wrong'})(req, res, function(err) {
+      assert.equal(secretCalled, false);
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.message, 'jwt issuer invalid. expected: http://wrong');
+    }); 
+  });
+
   it('should use errors thrown from custom getToken function', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
@@ -343,4 +363,29 @@ describe('work tests', function () {
       assert.equal('bar', req.user.foo);
     });
   });
+
+
+  it("should check issuer before fetching a secret and succeed if issuer is correct", function() {
+    var secret = "shhhhhh";
+    var token = jwt.sign({ foo: "bar", iss: "http://foo" }, secret);
+
+    var secretCalled = false;
+    var secretCallback = function(req, headers, payload, cb) {
+      secretCalled = true;
+      process.nextTick(function() {
+        return cb(null, secret);
+      });
+    };
+
+    req.headers = {};
+    req.headers.authorization = "Bearer " + token;
+    expressjwt({
+      secret: secretCallback,
+      issuer: "http://foo"
+    })(req, res, function(err) {
+      assert.equal(secretCalled, true);
+      assert.ok(!err);
+    });
+  });
+
 });
