@@ -64,6 +64,33 @@ var publicKey = fs.readFileSync('/path/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
+Public key can also be fetched dynamically from .well-known endpoint. See project [https://github.com/auth0/node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) 
+```javascript
+const Express = require('express');
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
+...
+// Initialize the app.
+const app = new Express();
+app.use(jwt({
+  // Dynamically provide a signing key based on the kid in the header and the singing keys provided by the JWKS endpoint.
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://my-authz-server/.well-known/jwks.json`
+  }),
+
+  // Validate the audience and the issuer.
+  audience: 'urn:my-resource-server',
+  issuer: 'https://my-authz-server/',
+  algorithms: [ 'RS256' ]
+}));
+```
+
+Full example code: [https://github.com/auth0/node-jwks-rsa/tree/master/examples/express-demo](https://github.com/auth0/node-jwks-rsa/tree/master/examples/express-demo).
+
+
 By default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
 
 
