@@ -39,6 +39,21 @@ describe('multitenancy', function(){
     });
   });
 
+  it ('should retrieve secret using async callback', function(done){
+    var token = jwt.sign({ iss: 'a', foo: 'bar'}, tenants.a.secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({
+      secret: async (req, header, payload, cb) => {
+        return cb(null, tenants[payload.iss].secret);
+      }
+    })(req, res, function() {
+      assert.equal('bar', req.user.foo);
+      done();
+    });
+  });
+
   it ('should throw if an error ocurred when retrieving the token', function(){
     var secret = 'shhhhhh';
     var token = jwt.sign({ iss: 'inexistent', foo: 'bar'}, secret);
