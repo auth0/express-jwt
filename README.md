@@ -175,6 +175,8 @@ The default behavior is to throw an error when the token is invalid, so you can 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).send('invalid token...');
+  } else {
+    next(err);
   }
 });
 ```
