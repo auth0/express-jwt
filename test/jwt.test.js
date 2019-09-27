@@ -400,7 +400,7 @@ describe('work tests', function() {
     });
   });
 
-  describe('should work when getToken is Promise like', function() {
+  describe('should work when getToken is Promise like function', function() {
     it('getToken is AsyncFunction', function() {
       var secret = 'shhhhhh';
       var token = jwt.sign('foo', secret);
@@ -413,7 +413,7 @@ describe('work tests', function() {
       });
     });
 
-    it('getToken is Promise', function() {
+    it('getToken return Promise', function() {
       var secret = 'shhhhhh';
       var token = jwt.sign('foo', secret);
 
