@@ -25,6 +25,8 @@ app.get('/protected',
   });
 ```
 
+> The default behavior of the module is to extract the JWT from the `Authorization` header as an [OAuth2 Bearer token](https://oauth.net/2/bearer-tokens/).
+
 You can specify audience and/or issuer as well:
 
 ```javascript
