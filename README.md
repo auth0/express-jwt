@@ -2,29 +2,23 @@
 
 [![Build](https://travis-ci.org/auth0/express-jwt.png)](http://travis-ci.org/auth0/express-jwt)
 
-Middleware that validates JsonWebTokens and sets `req.user`.
-
-This module lets you authenticate HTTP requests using JWT tokens in your Node.js
-applications.  JWTs are typically used to protect API endpoints, and are
-often issued using OpenID Connect.
+This module provides Express middleware for validating and decoding JWTs ([JSON Web Tokens](https://jwt.io)) through the [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/) module. The decoded information is provided on the Express request object.
 
 ## Install
 
-    $ npm install express-jwt
+```
+$ npm install express-jwt
+```
 
 ## Usage
 
-The JWT authentication middleware authenticates callers using a JWT.
-If the token is valid, `req.user` will be set with the JSON object decoded
-to be used by later middleware for authorization and access control.
-
-For example,
+Basic usage using an HS256 secret:
 
 ```javascript
 var jwt = require('express-jwt');
 
 app.get('/protected',
-  jwt({secret: 'shhhhhhared-secret'}),
+  jwt({ secret: 'shhhhhhared-secret' }),
   function(req, res) {
     if (!req.user.admin) return res.sendStatus(401);
     res.sendStatus(200);
@@ -34,9 +28,11 @@ app.get('/protected',
 You can specify audience and/or issuer as well:
 
 ```javascript
-jwt({ secret: 'shhhhhhared-secret',
+jwt({
+  secret: 'shhhhhhared-secret',
   audience: 'http://myapi/protected',
-  issuer: 'http://issuer' })
+  issuer: 'http://issuer'
+})
 ```
 
 > If the JWT has an expiration (`exp`), it will be checked.
@@ -100,6 +96,7 @@ app.use(jwt({
 ```
 
 ### Multi-tenancy
+
 If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, done)`:
 * `req` (`Object`) - The express `request` object.
 * `payload` (`Object`) - An object with the JWT claims.
@@ -108,6 +105,7 @@ If you are developing an application in which the secret used to sign tokens is 
   * `secret` (`String`) - The secret to use to verify the JWT.
 
 For example, if the secret varies based on the [JWT issuer](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
+
 ```javascript
 var jwt = require('express-jwt');
 var data = require('./data');
@@ -126,7 +124,7 @@ var secretCallback = function(req, payload, done){
 };
 
 app.get('/protected',
-  jwt({secret: secretCallback}),
+  jwt({ secret: secretCallback }),
   function(req, res) {
     if (!req.user.admin) return res.sendStatus(401);
     res.sendStatus(200);
@@ -158,18 +156,20 @@ var isRevokedCallback = function(req, payload, done){
 };
 
 app.get('/protected',
-  jwt({secret: 'shhhhhhared-secret',
-    isRevoked: isRevokedCallback}),
+  jwt({
+    secret: 'shhhhhhared-secret',
+    isRevoked: isRevokedCallback
+  }),
   function(req, res) {
     if (!req.user.admin) return res.sendStatus(401);
     res.sendStatus(200);
-  });
+  }
+);
 ```
 
 ### Error handling
 
 The default behavior is to throw an error when the token is invalid, so you can add your custom logic to manage unauthorized access as follows:
-
 
 ```javascript
 app.use(function (err, req, res, next) {
@@ -179,8 +179,7 @@ app.use(function (err, req, res, next) {
 });
 ```
 
-You might want to use this module to identify registered users while still providing access to unregistered users. You
-can do this by using the option _credentialsRequired_:
+You might want to use this module to identify registered users while still providing access to unregistered users. You can do this by using the option `credentialsRequired`:
 
 ```javascript
 app.use(jwt({
@@ -196,8 +195,10 @@ app.use(jwt({
 
 ## Tests
 
-    $ npm install
-    $ npm test
+```
+$ npm install
+$ npm test
+```
 
 ## Contributors
 Check them out [here](https://github.com/auth0/express-jwt/graphs/contributors)
