@@ -25,7 +25,11 @@ app.get('/protected',
   });
 ```
 
+The decoded JWT payload is available on the request via the `user` property. This can be configured using the `requestProperty` option ([see below](#retrieving-the-decoded-payload)).
+
 > The default behavior of the module is to extract the JWT from the `Authorization` header as an [OAuth2 Bearer token](https://oauth.net/2/bearer-tokens/).
+
+### Additional Options
 
 You can specify audience and/or issuer as well:
 
@@ -62,6 +66,8 @@ var publicKey = fs.readFileSync('/path/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
+### Retrieving the Decoded Payload
+
 By default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
 
 
@@ -76,6 +82,8 @@ jwt({ secret: publicKey, resultProperty: 'locals.user' });
 ```
 
 Both `resultProperty` and `requestProperty` utilize [lodash.set](https://lodash.com/docs/4.17.2#set) and will accept nested property paths.
+
+### Customizing Token Location
 
 A custom function for extracting the token from a request can be specified with
 the `getToken` option. This is useful if you need to pass the token through a
