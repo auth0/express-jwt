@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "conventional-changelog": "~1.1.0",
-    "mocha": "1.x.x"
+    "mocha": "^7.1.1"
   },
   "engines": {
     "node": ">= 0.4.0"
