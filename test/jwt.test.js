@@ -253,7 +253,21 @@ describe('work tests', function () {
     });
   });
 
-  it('should set resultProperty if option provided', function() {
+  it('should set responseProperty if option provided', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req = { };
+    res = { };
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: secret, responseProperty: 'locals.user'})(req, res, function() {
+      assert.equal('bar', res.locals.user.foo);
+      assert.ok(typeof req.user === 'undefined');
+    });
+  });
+  
+  it('should set responseProperty if resultProperty (deprecated) option provided', function () {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -267,7 +281,7 @@ describe('work tests', function () {
     });
   });
 
-  it('should ignore userProperty if resultProperty option provided', function() {
+  it('should ignore userProperty if responseProperty option provided', function() {
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -275,7 +289,7 @@ describe('work tests', function () {
     res = { };
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret, userProperty: 'auth', resultProperty: 'locals.user'})(req, res, function() {
+    expressjwt({secret: secret, userProperty: 'auth', responseProperty: 'locals.user'})(req, res, function() {
       assert.equal('bar', res.locals.user.foo);
       assert.ok(typeof req.auth === 'undefined');
     });
