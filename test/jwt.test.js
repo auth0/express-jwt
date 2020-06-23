@@ -5,9 +5,6 @@ var expressjwt = require('../lib');
 var UnauthorizedError = require('../lib/errors/UnauthorizedError');
 
 describe('failure tests', function () {
-  var req = {};
-  var res = {};
-
   it('should throw if options not sent', function() {
     try {
       expressjwt();
@@ -43,6 +40,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if authorization header is malformed', function() {
+    var req = {};
     req.headers = {};
     req.headers.authorization = 'wrong';
     expressjwt({secret: 'shhhh'})(req, res, function(err) {
@@ -52,6 +50,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if authorization header is not Bearer', function() {
+    var req = {};
     req.headers = {};
     req.headers.authorization = 'Basic foobar';
     expressjwt({secret: 'shhhh'})(req, res, function(err) {
@@ -61,6 +60,7 @@ describe('failure tests', function () {
   });
 
   it('should next if authorization header is not Bearer and credentialsRequired is false', function() {
+    var req = {};
     req.headers = {};
     req.headers.authorization = 'Basic foobar';
     expressjwt({secret: 'shhhh', credentialsRequired: false})(req, res, function(err) {
@@ -69,6 +69,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if authorization header is not well-formatted jwt', function() {
+    var req = {};
     req.headers = {};
     req.headers.authorization = 'Bearer wrongjwt';
     expressjwt({secret: 'shhhh'})(req, res, function(err) {
@@ -78,6 +79,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if jwt is an invalid json', function() {
+    var req = {};
     req.headers = {};
     req.headers.authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.yJ1c2VybmFtZSI6InNhZ3VpYXIiLCJpYXQiOjE0NzEwMTg2MzUsImV4cCI6MTQ3MzYxMDYzNX0.foo';
     expressjwt({secret: 'shhhh'})(req, res, function(err) {
@@ -87,6 +89,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if authorization header is not valid jwt', function() {
+    var req = {};
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -100,6 +103,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if audience is not expected', function() {
+    var req = {};
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar', aud: 'expected-audience'}, secret);
 
@@ -113,6 +117,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if token is expired', function() {
+    var req = {};
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar', exp: 1382412921 }, secret);
 
@@ -127,6 +132,7 @@ describe('failure tests', function () {
   });
 
   it('should throw if token issuer is wrong', function() {
+    var req = {};
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar', iss: 'http://foo' }, secret);
 
@@ -140,8 +146,8 @@ describe('failure tests', function () {
   });
 
   it('should use errors thrown from custom getToken function', function() {
+    var req = {};
     var secret = 'shhhhhh';
-    var token = jwt.sign({foo: 'bar'}, secret);
 
     function getTokenThatThrowsError() {
       throw new UnauthorizedError('invalid_token', { message: 'Invalid token!' });
@@ -159,6 +165,7 @@ describe('failure tests', function () {
 
 
   it('should throw error when signature is wrong', function() {
+      var req = {};
       var secret = "shhh";
       var token = jwt.sign({foo: 'bar', iss: 'http://www'}, secret);
       // manipulate the token
@@ -178,6 +185,7 @@ describe('failure tests', function () {
   });
 
   it('should throw error if token is expired even with when credentials are not required', function() {
+      var req = {};
       var secret = 'shhhhhh';
       var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
 
@@ -191,6 +199,7 @@ describe('failure tests', function () {
   });
 
   it('should throw error if token is invalid even with when credentials are not required', function() {
+      var req = {};
       var secret = 'shhhhhh';
       var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
 
@@ -203,13 +212,27 @@ describe('failure tests', function () {
       });
   });
 
+  it('should throw error if the jwt is unsigned and not explicitly allowed with algorithms:[none]', function(done) {
+    var req = {};
+    var secretCallback = function(req, headers, payload, cb) {
+      process.nextTick(function(){ return cb(null, null) });
+    }
+    var token = jwt.sign({foo: 'bar'}, 'secret', {algorithm: "none"});
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: secretCallback})(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.message, 'invalid algorithm');
+      done();
+    });
+  });
 });
 
 describe('work tests', function () {
-  var req = {};
-  var res = {};
-
   it('should work if authorization header is valid jwt', function() {
+    var req = { };
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -221,6 +244,7 @@ describe('work tests', function () {
   });
 
   it('should work with nested properties', function() {
+    var req = { };
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -232,6 +256,7 @@ describe('work tests', function () {
   });
 
   it('should work if authorization header is valid with a buffer secret', function() {
+    var req = { };
     var secret = new Buffer('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -243,6 +268,7 @@ describe('work tests', function () {
   });
 
   it('should set userProperty if option provided', function() {
+    var req = { };
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -254,11 +280,10 @@ describe('work tests', function () {
   });
 
   it('should set resultProperty if option provided', function() {
+    var req = { };
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
-    req = { };
-    res = { };
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: secret, resultProperty: 'locals.user'})(req, res, function() {
@@ -268,11 +293,10 @@ describe('work tests', function () {
   });
 
   it('should ignore userProperty if resultProperty option provided', function() {
+    var req = { };
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
-    req = { };
-    res = { };
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: secret, userProperty: 'auth', resultProperty: 'locals.user'})(req, res, function() {
@@ -282,14 +306,15 @@ describe('work tests', function () {
   });
 
   it('should work if no authorization header and credentials are not required', function() {
-    req = {};
+    var req = { };
     expressjwt({ secret: 'shhhh', credentialsRequired: false })(req, res, function(err) {
       assert(typeof err === 'undefined');
-    });
+    })
   });
 
   it('should not work if no authorization header', function() {
-    req = {};
+    var req = { };
+
     expressjwt({ secret: 'shhhh' })(req, res, function(err) {
       assert(typeof err !== 'undefined');
     });
@@ -309,6 +334,7 @@ describe('work tests', function () {
   });
 
   it('should work with a custom getToken function', function() {
+    var req = {};
     var secret = 'shhhhhh';
     var token = jwt.sign({foo: 'bar'}, secret);
 
@@ -328,7 +354,8 @@ describe('work tests', function () {
     });
   });
 
-  it('should work with a secretCallback function that accepts header argument', function() {
+  it('should work with a secretCallback function that accepts header argument', function(done) {
+    var req = {};
     var secret = 'shhhhhh';
     var secretCallback = function(req, headers, payload, cb) {
       assert.equal(headers.alg, 'HS256');
@@ -341,6 +368,21 @@ describe('work tests', function () {
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({secret: secretCallback})(req, res, function() {
       assert.equal('bar', req.user.foo);
+      done()
+    });
+  });
+  it('should work with unsigned jwts when explicitly allowed with algorithms:[none]', function(done) {
+    var req = {};
+    var secretCallback = function(req, headers, payload, cb) {
+      process.nextTick(function(){ return cb(null, null) });
+    }
+    var token = jwt.sign({foo: 'bar'}, 'secret', {algorithm: "none"});
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({secret: secretCallback, algorithms: ["none"]})(req, res, function() {
+      assert.equal('bar', req.user.foo);
+      done();
     });
   });
 });
