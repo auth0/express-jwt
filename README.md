@@ -66,6 +66,14 @@ var publicKey = fs.readFileSync('/path/to/public.pub');
 jwt({ secret: publicKey });
 ```
 
+#### Enabling "none" signature
+
+By default, empty (none) signatures are not allowed, enable it by supplying it in the `algorithms` option.
+
+```javascript
+jwt({ secret: publicKey, algorithms: ["HS256", "none"] });
+```
+
 ### Retrieving the Decoded Payload
 
 By default, the decoded token is attached to `req.user` but can be configured with the `requestProperty` option.
