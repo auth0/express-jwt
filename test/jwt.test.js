@@ -17,8 +17,26 @@ describe('failure tests', function () {
     }
   });
 
+  it('should throw if algorithms is not sent', function() {
+    try {
+      expressjwt({ secret: 'shhhh' });
+    } catch(e) {
+      assert.ok(e);
+      assert.equal(e.message, 'algorithms should be set');
+    }
+  });
+
+  it('should throw if algorithms is not an array', function() {
+    try {
+      expressjwt({ secret: 'shhhh', algorithms: 'foo' });
+    } catch(e) {
+      assert.ok(e);
+      assert.equal(e.message, 'algorithms must be an array');
+    }
+  });
+
   it('should throw if no authorization header and credentials are required', function() {
-    expressjwt({secret: 'shhhh', credentialsRequired: true})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', credentialsRequired: true, algorithms: ['HS256']})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'credentials_required');
     });
@@ -26,7 +44,7 @@ describe('failure tests', function () {
 
   it('support unless skip', function() {
     req.originalUrl = '/index.html';
-    expressjwt({secret: 'shhhh'}).unless({path: '/index.html'})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256'], algorithms: ['HS256']}).unless({path: '/index.html'})(req, res, function(err) {
       assert.ok(!err);
     });
   });
@@ -37,7 +55,7 @@ describe('failure tests', function () {
     corsReq.headers = {
       'access-control-request-headers': 'sasa, sras,  authorization'
     };
-    expressjwt({secret: 'shhhh'})(corsReq, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256']})(corsReq, res, function(err) {
       assert.ok(!err);
     });
   });
@@ -45,7 +63,7 @@ describe('failure tests', function () {
   it('should throw if authorization header is malformed', function() {
     req.headers = {};
     req.headers.authorization = 'wrong';
-    expressjwt({secret: 'shhhh'})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256']})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'credentials_bad_format');
     });
@@ -54,7 +72,7 @@ describe('failure tests', function () {
   it('should throw if authorization header is not Bearer', function() {
     req.headers = {};
     req.headers.authorization = 'Basic foobar';
-    expressjwt({secret: 'shhhh'})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256']})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'credentials_bad_scheme');
     });
@@ -63,7 +81,7 @@ describe('failure tests', function () {
   it('should next if authorization header is not Bearer and credentialsRequired is false', function() {
     req.headers = {};
     req.headers.authorization = 'Basic foobar';
-    expressjwt({secret: 'shhhh', credentialsRequired: false})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256'], credentialsRequired: false})(req, res, function(err) {
       assert.ok(typeof err === 'undefined');
     });
   });
@@ -71,7 +89,7 @@ describe('failure tests', function () {
   it('should throw if authorization header is not well-formatted jwt', function() {
     req.headers = {};
     req.headers.authorization = 'Bearer wrongjwt';
-    expressjwt({secret: 'shhhh'})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256']})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
     });
@@ -80,7 +98,7 @@ describe('failure tests', function () {
   it('should throw if jwt is an invalid json', function() {
     req.headers = {};
     req.headers.authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.yJ1c2VybmFtZSI6InNhZ3VpYXIiLCJpYXQiOjE0NzEwMTg2MzUsImV4cCI6MTQ3MzYxMDYzNX0.foo';
-    expressjwt({secret: 'shhhh'})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256']})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
     });
@@ -92,7 +110,7 @@ describe('failure tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: 'different-shhhh'})(req, res, function(err) {
+    expressjwt({secret: 'different-shhhh', algorithms: ['HS256'] })(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
       assert.equal(err.message, 'invalid signature');
@@ -101,11 +119,11 @@ describe('failure tests', function () {
 
   it('should throw if audience is not expected', function() {
     var secret = 'shhhhhh';
-    var token = jwt.sign({foo: 'bar', aud: 'expected-audience'}, secret);
+    var token = jwt.sign({foo: 'bar', aud: 'expected-audience'}, secret, { expiresIn: 500});
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: 'shhhhhh', audience: 'not-expected-audience'})(req, res, function(err) {
+    expressjwt({secret: 'shhhhhh', algorithms: ['HS256'], audience: 'not-expected-audience'})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
       assert.equal(err.message, 'jwt audience invalid. expected: not-expected-audience');
@@ -118,7 +136,7 @@ describe('failure tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: 'shhhhhh'})(req, res, function(err) {
+    expressjwt({secret: 'shhhhhh', algorithms: ['HS256']})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
       assert.equal(err.inner.name, 'TokenExpiredError');
@@ -132,7 +150,7 @@ describe('failure tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: 'shhhhhh', issuer: 'http://wrong'})(req, res, function(err) {
+    expressjwt({secret: 'shhhhhh', algorithms: ['HS256'], issuer: 'http://wrong'})(req, res, function(err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
       assert.equal(err.message, 'jwt issuer invalid. expected: http://wrong');
@@ -141,14 +159,13 @@ describe('failure tests', function () {
 
   it('should use errors thrown from custom getToken function', function() {
     var secret = 'shhhhhh';
-    var token = jwt.sign({foo: 'bar'}, secret);
 
     function getTokenThatThrowsError() {
       throw new UnauthorizedError('invalid_token', { message: 'Invalid token!' });
     }
 
     expressjwt({
-      secret: 'shhhhhh',
+      secret: 'shhhhhh', algorithms: ['HS256'],
       getToken: getTokenThatThrowsError
     })(req, res, function(err) {
       assert.ok(err);
@@ -156,7 +173,6 @@ describe('failure tests', function () {
       assert.equal(err.message, 'Invalid token!');
     });
   });
-
 
   it('should throw error when signature is wrong', function() {
       var secret = "shhh";
@@ -170,7 +186,7 @@ describe('failure tests', function () {
       // build request
       req.headers = [];
       req.headers.authorization = 'Bearer ' + newToken;
-      expressjwt({secret: secret})(req,res, function(err) {
+      expressjwt({secret: secret, algorithms: ['HS256']})(req,res, function(err) {
           assert.ok(err);
           assert.equal(err.code, 'invalid_token');
           assert.equal(err.message, 'invalid token');
@@ -183,7 +199,7 @@ describe('failure tests', function () {
 
       req.headers = {};
       req.headers.authorization = 'Bearer ' + token;
-      expressjwt({ secret: secret, credentialsRequired: false })(req, res, function(err) {
+      expressjwt({ secret: secret, credentialsRequired: false, algorithms: ['HS256'] })(req, res, function(err) {
           assert.ok(err);
           assert.equal(err.code, 'invalid_token');
           assert.equal(err.message, 'jwt expired');
@@ -196,7 +212,7 @@ describe('failure tests', function () {
 
       req.headers = {};
       req.headers.authorization = 'Bearer ' + token;
-      expressjwt({ secret: "not the secret", credentialsRequired: false })(req, res, function(err) {
+      expressjwt({ secret: "not the secret", algorithms: ['HS256'], credentialsRequired: false })(req, res, function(err) {
           assert.ok(err);
           assert.equal(err.code, 'invalid_token');
           assert.equal(err.message, 'invalid signature');
@@ -215,7 +231,7 @@ describe('work tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret})(req, res, function() {
+    expressjwt({secret: secret, algorithms: ['HS256']})(req, res, function() {
       assert.equal('bar', req.user.foo);
     });
   });
@@ -226,7 +242,7 @@ describe('work tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret, requestProperty: 'auth.token'})(req, res, function() {
+    expressjwt({secret: secret, algorithms: ['HS256'], requestProperty: 'auth.token'})(req, res, function() {
       assert.equal('bar', req.auth.token.foo);
     });
   });
@@ -237,7 +253,7 @@ describe('work tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret})(req, res, function() {
+    expressjwt({secret: secret, algorithms: ['HS256']})(req, res, function() {
       assert.equal('bar', req.user.foo);
     });
   });
@@ -248,7 +264,7 @@ describe('work tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret, userProperty: 'auth'})(req, res, function() {
+    expressjwt({secret: secret, algorithms: ['HS256'], userProperty: 'auth'})(req, res, function() {
       assert.equal('bar', req.auth.foo);
     });
   });
@@ -261,7 +277,7 @@ describe('work tests', function () {
     res = { };
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret, resultProperty: 'locals.user'})(req, res, function() {
+    expressjwt({secret: secret, algorithms: ['HS256'], resultProperty: 'locals.user'})(req, res, function() {
       assert.equal('bar', res.locals.user.foo);
       assert.ok(typeof req.user === 'undefined');
     });
@@ -275,7 +291,7 @@ describe('work tests', function () {
     res = { };
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret, userProperty: 'auth', resultProperty: 'locals.user'})(req, res, function() {
+    expressjwt({secret: secret, algorithms: ['HS256'], userProperty: 'auth', resultProperty: 'locals.user'})(req, res, function() {
       assert.equal('bar', res.locals.user.foo);
       assert.ok(typeof req.auth === 'undefined');
     });
@@ -283,14 +299,14 @@ describe('work tests', function () {
 
   it('should work if no authorization header and credentials are not required', function() {
     req = {};
-    expressjwt({ secret: 'shhhh', credentialsRequired: false })(req, res, function(err) {
+    expressjwt({ secret: 'shhhh', algorithms: ['HS256'], credentialsRequired: false })(req, res, function(err) {
       assert(typeof err === 'undefined');
     });
   });
 
   it('should not work if no authorization header', function() {
     req = {};
-    expressjwt({ secret: 'shhhh' })(req, res, function(err) {
+    expressjwt({ secret: 'shhhh', algorithms: ['HS256'] })(req, res, function(err) {
       assert(typeof err !== 'undefined');
     });
   });
@@ -301,7 +317,7 @@ describe('work tests', function () {
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
 
-    expressjwt({secret: 'secretB'})(req, res, function(err) {
+    expressjwt({secret: 'secretB', algorithms: ['HS256']})(req, res, function(err) {
       var index = err.stack.indexOf('UnauthorizedError: invalid signature')
       assert.equal(index, 0, "Stack trace didn't include 'invalid signature' message.")
     });
@@ -322,6 +338,7 @@ describe('work tests', function () {
 
     expressjwt({
       secret: secret,
+      algorithms: ['HS256'],
       getToken: getTokenFromQuery
     })(req, res, function() {
       assert.equal('bar', req.user.foo);
@@ -339,7 +356,7 @@ describe('work tests', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secretCallback})(req, res, function() {
+    expressjwt({secret: secretCallback, algorithms: ['HS256']})(req, res, function() {
       assert.equal('bar', req.user.foo);
     });
   });

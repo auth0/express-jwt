@@ -11,6 +11,7 @@ describe('revoked jwts', function(){
 
   var middleware = expressjwt({
     secret: secret,
+    algorithms: ['HS256'],
     isRevoked: function(req, payload, done){
       done(null, payload.jti && payload.jti === revoked_id);
     }
@@ -54,6 +55,7 @@ describe('revoked jwts', function(){
 
     expressjwt({
       secret: secret,
+      algorithms: ['HS256'],
       isRevoked: function(req, payload, done){
         done(new Error('An error ocurred'));
       }

@@ -14,7 +14,7 @@ describe('string tokens', function () {
 
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
-    expressjwt({secret: secret})(req, res, function() {
+    expressjwt({secret: secret, algorithms: ['HS256']})(req, res, function() {
       assert.equal('foo', req.user);
     });
   });

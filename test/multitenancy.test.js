@@ -25,7 +25,8 @@ describe('multitenancy', function(){
   };
 
   var middleware = expressjwt({
-    secret: secretCallback
+    secret: secretCallback,
+    algorithms: ['HS256']
   });
 
   it ('should retrieve secret using callback', function(){
@@ -59,8 +60,9 @@ describe('multitenancy', function(){
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
 
-    var middleware = expressjwt({
+    expressjwt({
       secret: secretCallback,
+      algorithms: ['HS256'],
       isRevoked: function(req, payload, done){
         done(null, true);
       }
