@@ -18,7 +18,7 @@ Basic usage using an HS256 secret:
 var jwt = require('express-jwt');
 
 app.get('/protected',
-  jwt({ secret: 'shhhhhhared-secret' }),
+  jwt({ secret: 'shhhhhhared-secret', algorithms: ['HS256'] }),
   function(req, res) {
     if (!req.user.admin) return res.sendStatus(401);
     res.sendStatus(200);
@@ -29,15 +29,29 @@ The decoded JWT payload is available on the request via the `user` property. Thi
 
 > The default behavior of the module is to extract the JWT from the `Authorization` header as an [OAuth2 Bearer token](https://oauth.net/2/bearer-tokens/).
 
+### Required Parameters
+The `algorithms` parameter is required to prevent potential downgrade attacks when providing third party libraries as **secrets**.
+
+:warning: **Do not mix symmetric and asymmetric (ie HS256/RS256) algorithms**: Mixing algorithms without further validation can potentially result in downgrade vulnerabilities.
+
+```javascript
+jwt({
+  secret: 'shhhhhhared-secret',
+  algorithms: ['HS256']
+  //algorithms: ['RS256']
+})
+```
+
 ### Additional Options
 
-You can specify audience and/or issuer as well:
+You can specify audience and/or issuer as well, which is highly recommended for security purposes:
 
 ```javascript
 jwt({
   secret: 'shhhhhhared-secret',
   audience: 'http://myapi/protected',
-  issuer: 'http://issuer'
+  issuer: 'http://issuer',
+  algorithms: ['HS256']
 })
 ```
 
@@ -46,13 +60,14 @@ jwt({
 If you are using a base64 URL-encoded secret, pass a `Buffer` with `base64` encoding as the secret instead of a string:
 
 ```javascript
-jwt({ secret: new Buffer('shhhhhhared-secret', 'base64') })
+jwt({ secret: Buffer.from('shhhhhhared-secret', 'base64'),
+      algorithms: ['RS256'] })
 ```
 
 Optionally you can make some paths unprotected as follows:
 
 ```javascript
-app.use(jwt({ secret: 'shhhhhhared-secret'}).unless({path: ['/token']}));
+app.use(jwt({ secret: 'shhhhhhared-secret', algorithms: ['HS256']}).unless({path: ['/token']}));
 ```
 
 This is especially useful when applying to multiple routes. In the example above, `path` can be a string, a regexp, or an array of any of those.
@@ -63,7 +78,7 @@ This module also support tokens signed with public/private key pairs. Instead of
 
 ```javascript
 var publicKey = fs.readFileSync('/path/to/public.pub');
-jwt({ secret: publicKey });
+jwt({ secret: publicKey, algorithms: ['RS256'] });
 ```
 
 ### Retrieving the Decoded Payload
@@ -72,13 +87,13 @@ By default, the decoded token is attached to `req.user` but can be configured wi
 
 
 ```javascript
-jwt({ secret: publicKey, requestProperty: 'auth' });
+jwt({ secret: publicKey, algorithms: ['RS256'], requestProperty: 'auth' });
 ```
 
 The token can also be attached to the `result` object with the `resultProperty` option. This option will override any `requestProperty`.
 
 ```javascript
-jwt({ secret: publicKey, resultProperty: 'locals.user' });
+jwt({ secret: publicKey, algorithms: ['RS256'], resultProperty: 'locals.user' });
 ```
 
 Both `resultProperty` and `requestProperty` utilize [lodash.set](https://lodash.com/docs/4.17.2#set) and will accept nested property paths.
@@ -93,6 +108,7 @@ be handled by `express-jwt`.
 ```javascript
 app.use(jwt({
   secret: 'hello world !',
+  algorithms: ['HS256'],
   credentialsRequired: false,
   getToken: function fromHeaderOrQuerystring (req) {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -134,7 +150,7 @@ var secretCallback = function(req, payload, done){
 };
 
 app.get('/protected',
-  jwt({ secret: secretCallback }),
+  jwt({ secret: secretCallback, algorithms: ['HS256'] }),
   function(req, res) {
     if (!req.user.admin) return res.sendStatus(401);
     res.sendStatus(200);
@@ -168,6 +184,7 @@ var isRevokedCallback = function(req, payload, done){
 app.get('/protected',
   jwt({
     secret: 'shhhhhhared-secret',
+    algorithms: ['HS256'],
     isRevoked: isRevokedCallback
   }),
   function(req, res) {
@@ -194,6 +211,7 @@ You might want to use this module to identify registered users while still provi
 ```javascript
 app.use(jwt({
   secret: 'hello world !',
+  algorithms: ['HS256'],
   credentialsRequired: false
 }));
 ```
