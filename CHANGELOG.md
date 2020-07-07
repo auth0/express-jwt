@@ -4,6 +4,27 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.3.0 - 2017-04-17
+
+ - 5.3.0 ([9ff413a6350ad0117ddef82e9da7eaeb55061e0b](https://github.com/auth0/express-jwt/commit/9ff413a6350ad0117ddef82e9da7eaeb55061e0b))
+ - Add documentation for resultProperty ([3acc3730900479f92e1f6e480ac14905106e83d4](https://github.com/auth0/express-jwt/commit/3acc3730900479f92e1f6e480ac14905106e83d4))
+ - Add resultProperty option ([c84b69f52b29abbafc36506306dddf1e5d1c4f9b](https://github.com/auth0/express-jwt/commit/c84b69f52b29abbafc36506306dddf1e5d1c4f9b))
+ - bump jsonwebtoken version to 7 ([d42f5df0f075de37ffb1f731bb7bdbd9b2c87f4b](https://github.com/auth0/express-jwt/commit/d42f5df0f075de37ffb1f731bb7bdbd9b2c87f4b))
+ - Ensure proper error messages end up in stack trace ([657592d9aef4e28490773022ff06bc36432df82b](https://github.com/auth0/express-jwt/commit/657592d9aef4e28490773022ff06bc36432df82b))
+ - Fix syntax highlighting ([56d74613f797646732c40e7cafd903af23f35397](https://github.com/auth0/express-jwt/commit/56d74613f797646732c40e7cafd903af23f35397))
+ - Test for resultProperty option ([13ae992c7c78f79a254cac2741ab4a7cb9752eaf](https://github.com/auth0/express-jwt/commit/13ae992c7c78f79a254cac2741ab4a7cb9752eaf))
+ - UnauthorizedError exports directly from the module ([7a57149a9fcbf86d73e41904768e95ad8ddf5a81](https://github.com/auth0/express-jwt/commit/7a57149a9fcbf86d73e41904768e95ad8ddf5a81))
+ - update jsonwebtoken ([b2207c823e34dc1a8ab89cb50aebe77b6e35f668](https://github.com/auth0/express-jwt/commit/b2207c823e34dc1a8ab89cb50aebe77b6e35f668))
+ - Update package.json ([f2779d7a01cb53ad51f2bcf43f942b1299bba798](https://github.com/auth0/express-jwt/commit/f2779d7a01cb53ad51f2bcf43f942b1299bba798))
+
+
+
+## 5.2.0 - 2016-10-07
+
+ - add changelog. closes #139 ([34dd51dde3fd83182bd076d9a9378626d17152f2](https://github.com/auth0/express-jwt/commit/34dd51dde3fd83182bd076d9a9378626d17152f2)), closes [#139](https://github.com/auth0/express-jwt/issues/139)
+
+
+
 ## 5.1.0 - 2016-10-04
 
  - A cleaner way to detect a function ([b7235714def5b4b3b91ee2d955a6a82706792825](https://github.com/auth0/express-jwt/commit/b7235714def5b4b3b91ee2d955a6a82706792825))
@@ -16,14 +37,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 5.0.0 - 2016-09-05
 
  - *Expose UnauthorizedError ([a6a36058b949bbffaa5969e6435aaad5201651d8](https://github.com/auth0/express-jwt/commit/a6a36058b949bbffaa5969e6435aaad5201651d8))
-
-
-## 4.0.0 - 2016-05-06
-
+ - 4.0.0 ([a7ab08aaf695da2a14880880ca449bc61e104198](https://github.com/auth0/express-jwt/commit/a7ab08aaf695da2a14880880ca449bc61e104198))
  - Added express-jwt-permissions link ([ef0b848b15ce7ec7148bfbb1a97ee6a9991f7251](https://github.com/auth0/express-jwt/commit/ef0b848b15ce7ec7148bfbb1a97ee6a9991f7251))
  - remove support for deprecated option ([b894ea25b0721305861f57dbec6982eb2a462e97](https://github.com/auth0/express-jwt/commit/b894ea25b0721305861f57dbec6982eb2a462e97))
  - Update middleware to throw when token is invalid when credentials aren't required ([fd58e8961fe6034e7136ea0b31218a299ddf5178](https://github.com/auth0/express-jwt/commit/fd58e8961fe6034e7136ea0b31218a299ddf5178))
  - upgrade jwt library ([01409b3dd99306520a498894293657a88778cdd5](https://github.com/auth0/express-jwt/commit/01409b3dd99306520a498894293657a88778cdd5))
+
+
 
 ## 3.4.0 - 2016-05-06
 
@@ -31,6 +51,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
  - fixing syntax error in README for string value ([ae69114afe5ca84f39adfac8dc7e9b224eab5410](https://github.com/auth0/express-jwt/commit/ae69114afe5ca84f39adfac8dc7e9b224eab5410))
  - More lightweight dependency ([4861bbb9d906f8fbd8c494fe2dbc4fda0d7865c6](https://github.com/auth0/express-jwt/commit/4861bbb9d906f8fbd8c494fe2dbc4fda0d7865c6))
  - Readme fixed and license renamed ([0e9c88d592f6499bf4d4e212a39fdc50e7206832](https://github.com/auth0/express-jwt/commit/0e9c88d592f6499bf4d4e212a39fdc50e7206832))
+
 
 
 ## 3.3.0 - 2015-11-09
@@ -56,7 +77,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
  - Changes the README describing unless and linking to the express unless github repo. ([6447a034fb7dd44526464e02319802f15f1e5315](https://github.com/auth0/express-jwt/commit/6447a034fb7dd44526464e02319802f15f1e5315))
  - Expand on what is possible with path param for unless() and give link to express-unless so the user knows that is what is being utilized. ([f13cd5f0d55154e551b11e872668879180979640](https://github.com/auth0/express-jwt/commit/f13cd5f0d55154e551b11e872668879180979640))
- - Merge README enhancement from @rustybailey ([71e5ec53b4d631cb6b8e5b7a691ab77636044612](https://github.com/auth0/express-jwt/commit/71e5ec53b4d631cb6b8e5b7a691ab77636044612))
+ - Merge README enhancement from @rustybailey ([71e5ec53b4d631cb6b8e5b7a691ab77636044612](https://github.com/auth0/express-jwt/commit/71e5ec53b4d631cb6b8e5b7a691ab77636044612)), closes [#81](https://github.com/auth0/express-jwt/issues/81)
  - Minor typo fix ([df62ee2bca84ca3990751ba3e567c95a6f3af86e](https://github.com/auth0/express-jwt/commit/df62ee2bca84ca3990751ba3e567c95a6f3af86e))
  - Optionally pass token headers to secret callback. ([988931b2fbbfb9f694a4c25c2f867a613f3f8a81](https://github.com/auth0/express-jwt/commit/988931b2fbbfb9f694a4c25c2f867a613f3f8a81))
  - Set express-unless minor version number. ([c262caf73ca64c2175717076538786da4397894c](https://github.com/auth0/express-jwt/commit/c262caf73ca64c2175717076538786da4397894c))
@@ -117,7 +138,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.2.0 - 2015-03-03
 
+ - added failure test, which checks for invalid signatures ([c465af6828566017df45bbe353628c65ce3a4407](https://github.com/auth0/express-jwt/commit/c465af6828566017df45bbe353628c65ce3a4407))
  - Added multitenant support ([672dd72b5e2132a5947220a24539fbbb58ee105a](https://github.com/auth0/express-jwt/commit/672dd72b5e2132a5947220a24539fbbb58ee105a))
+ - Update index.js ([f20fcb66f013d7b4d4b8ada1e7252295db293451](https://github.com/auth0/express-jwt/commit/f20fcb66f013d7b4d4b8ada1e7252295db293451))
+ - Update index.js ([3b3ffabe48be5c82d065c30579971bd1a1ffddf8](https://github.com/auth0/express-jwt/commit/3b3ffabe48be5c82d065c30579971bd1a1ffddf8))
+ - Update README.md ([6ae118e35091440c233015ef44899f972b9917ee](https://github.com/auth0/express-jwt/commit/6ae118e35091440c233015ef44899f972b9917ee))
+
+
 
 
 
@@ -144,6 +171,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
  - 0.6.2 ([1d00b78e7cf9572bc3843dff7ecb02eb5c9339c3](https://github.com/auth0/express-jwt/commit/1d00b78e7cf9572bc3843dff7ecb02eb5c9339c3))
  - Should not throw exception with invalid token if credentials are not required ([c68a16c01043436ce9b5851e39e000efd9ab5778](https://github.com/auth0/express-jwt/commit/c68a16c01043436ce9b5851e39e000efd9ab5778))
  - Updated test to verify that req.user is undefined if token is invalid ([014e2bdcad3f1ac42c070c2ea267f5f4206c099a](https://github.com/auth0/express-jwt/commit/014e2bdcad3f1ac42c070c2ea267f5f4206c099a))
-
-
-
