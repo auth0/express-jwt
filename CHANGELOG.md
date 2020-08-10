@@ -1,8 +1,30 @@
 # Change Log
 
-
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+## 6.0.0 - 2020-06-29
+
+ - Made algorithms mandatory ([304a1c5968aed7c4c520035426fc09142156669d](https://github.com/auth0/express-jwt/commit/304a1c5968aed7c4c520035426fc09142156669d))
+
+## 5.3.3 - 2020-04-27
+
+ - Improvements to documentation
+
+## 5.3.2 - 2020-04-27
+
+ - Updated build to run on Node 8, 10 and 12 [178928266c3cf2fed3f9e013722cc8d29d4672ba](https://github.com/auth0/express-jwt/commit/178928266c3cf2fed3f9e013722cc8d29d4672ba)
+ - Updated JSON web token dependency [11f3ac49736f37c5b74cd67bde87c50fdca19868](https://github.com/auth0/express-jwt/commit/11f3ac49736f37c5b74cd67bde87c50fdca19868)
+
+## 5.3.0 - 2017-04-17
+
+ - Export unauthorized error [d662501f75b60e79f0e02e8df325a7960187af65](https://github.com/auth0/express-jwt/commit/d662501f75b60e79f0e02e8df325a7960187af65)
+ - Updated JSON web token library [fcf97715a5a11cbf7b828a3fa953e4c644856706](https://github.com/auth0/express-jwt/commit/fcf97715a5a11cbf7b828a3fa953e4c644856706)
+ - Added support for `resultProperty` [c2aa463f69fea5535dc14da86f8ea13436e72d04](https://github.com/auth0/express-jwt/commit/c2aa463f69fea5535dc14da86f8ea13436e72d04)
+
+## 5.2.0 - 2016-10-07
+
+ - Added changelog [34dd51dde3fd83182bd076d9a9378626d17152f2](https://github.com/auth0/express-jwt/commit/34dd51dde3fd83182bd076d9a9378626d17152f2)
 
 ## 5.1.0 - 2016-10-04
 
