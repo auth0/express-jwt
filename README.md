@@ -194,6 +194,42 @@ app.get('/protected',
 );
 ```
 
+### Bring Your Own Verify
+
+A custom function to verify a the incoming JWT token. This
+is especially useful if you require custom logic, want to add
+to `jsonwebtoken` options properties that we do not offer 
+or require specific versions of `jsonwebtoken`.
+
+```javascript
+const jsonwebtoken = require('jsonwebtoken');
+
+app.use(jwt({
+  secret: 'hello world !',
+  algorithms: ['HS256'],
+  credentialsRequired: false,
+  verify: function customVerify (req, token, secret, options, callback) {
+    const additionalOptions = { 
+      // additional, conditional options here
+    } 
+
+    const opts = Object.assign({}, options, additionalOptions);
+    
+    jsonwebtoken.verify(token, secret, options, function handlePostLogic(err, decodedToken) {
+      if (err) {
+        return callback(err);
+      }
+
+      if (blockedByBilling.get(decoded.sub)) {
+        return callback(new Error('blocked_by_billing'));
+      }
+
+      callback(null, decodedToken);
+    })
+  }
+}));
+```
+
 ### Error handling
 
 The default behavior is to throw an error when the token is invalid, so you can add your custom logic to manage unauthorized access as follows:
