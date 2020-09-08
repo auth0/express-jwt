@@ -345,6 +345,35 @@ describe('work tests', function () {
     });
   });
 
+  it('should work with a custom verify function', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    req.headers = {};
+    req.query = {};
+    req.query.token = token;
+
+    function getTokenFromQuery(req) {
+      return req.query.token;
+    }
+
+    function verify(req, verifyToken, verifySecret, options, callback) {
+      assert.equal(secret, verifySecret)
+      assert.equal(token, verifyToken)
+      assert.equal(req.query.token, token)
+      return callback(null, { foo: 'bar' })
+    }
+
+    expressjwt({
+      secret: secret,
+      algorithms: ['HS256'],
+      getToken: getTokenFromQuery,
+      verify: verify
+    })(req, res, function() {
+      assert.equal('bar', req.user.foo);
+    });
+  });
+
   it('should work with a secretCallback function that accepts header argument', function() {
     var secret = 'shhhhhh';
     var secretCallback = function(req, headers, payload, cb) {
