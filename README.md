@@ -121,6 +121,30 @@ app.use(jwt({
 }));
 ```
 
+Alternatively, you can provide a callback function as the `getToken` parameter. This is useful if you need to do any asynchronous action to return the JWT.
+The function has the signature: `function(req, done)`:
+* `req` (`Object`) - The express `request` object.
+* `done` (`Function`) - A function with signature `function(err, token)` to be invoked when the token is retrieved.
+  * `err` (`Any`) - The error that occurred.
+  * `token` (`String`) - The JWT.
+
+For example, if you use a nested JWS into a JWE, it will allow you to decrypt the JWE (thanks to jose library) first. Then, you can extract the JWS token from the JWE payload.
+```javascript
+var secret = 'shhh';
+app.use(jwt({
+  secret: 'hello world !',
+  algorithms: ['HS256'],
+  getToken: function fromJWEClaimAttribute(req, done) {
+    jwtDecrypt(req.headers.authorization.split(' ')[1], Buffer.from(secret))
+            .then((payload, protectedHeader) => {
+              done(null, payload.claim);
+            }).catch((err) => {
+              done(err);
+            });
+  }
+}));
+```
+
 ### Multi-tenancy
 
 If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, done)`:
