@@ -175,48 +175,48 @@ describe('failure tests', function () {
   });
 
   it('should throw error when signature is wrong', function() {
-      var secret = "shhh";
-      var token = jwt.sign({foo: 'bar', iss: 'http://www'}, secret);
-      // manipulate the token
-      var newContent = new Buffer("{foo: 'bar', edg: 'ar'}").toString('base64');
-      var splitetToken = token.split(".");
-      splitetToken[1] = newContent;
-      var newToken = splitetToken.join(".");
+    var secret = "shhh";
+    var token = jwt.sign({foo: 'bar', iss: 'http://www'}, secret);
+    // manipulate the token
+    var newContent = new Buffer("{foo: 'bar', edg: 'ar'}").toString('base64');
+    var splitetToken = token.split(".");
+    splitetToken[1] = newContent;
+    var newToken = splitetToken.join(".");
 
-      // build request
-      req.headers = [];
-      req.headers.authorization = 'Bearer ' + newToken;
-      expressjwt({secret: secret, algorithms: ['HS256']})(req,res, function(err) {
-          assert.ok(err);
-          assert.equal(err.code, 'invalid_token');
-          assert.equal(err.message, 'invalid token');
-      });
+    // build request
+    req.headers = [];
+    req.headers.authorization = 'Bearer ' + newToken;
+    expressjwt({secret: secret, algorithms: ['HS256']})(req,res, function(err) {
+        assert.ok(err);
+        assert.equal(err.code, 'invalid_token');
+        assert.equal(err.message, 'invalid token');
+    });
   });
 
   it('should throw error if token is expired even with when credentials are not required', function() {
-      var secret = 'shhhhhh';
-      var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
 
-      req.headers = {};
-      req.headers.authorization = 'Bearer ' + token;
-      expressjwt({ secret: secret, credentialsRequired: false, algorithms: ['HS256'] })(req, res, function(err) {
-          assert.ok(err);
-          assert.equal(err.code, 'invalid_token');
-          assert.equal(err.message, 'jwt expired');
-      });
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({ secret: secret, credentialsRequired: false, algorithms: ['HS256'] })(req, res, function(err) {
+        assert.ok(err);
+        assert.equal(err.code, 'invalid_token');
+        assert.equal(err.message, 'jwt expired');
+    });
   });
 
   it('should throw error if token is invalid even with when credentials are not required', function() {
-      var secret = 'shhhhhh';
-      var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar', exp: 1382412921}, secret);
 
-      req.headers = {};
-      req.headers.authorization = 'Bearer ' + token;
-      expressjwt({ secret: "not the secret", algorithms: ['HS256'], credentialsRequired: false })(req, res, function(err) {
-          assert.ok(err);
-          assert.equal(err.code, 'invalid_token');
-          assert.equal(err.message, 'invalid signature');
-      });
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({ secret: "not the secret", algorithms: ['HS256'], credentialsRequired: false })(req, res, function(err) {
+        assert.ok(err);
+        assert.equal(err.code, 'invalid_token');
+        assert.equal(err.message, 'invalid signature');
+    });
   });
 
 });
