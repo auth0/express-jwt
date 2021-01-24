@@ -44,7 +44,7 @@ describe('failure tests', function () {
 
   it('support unless skip', function() {
     req.originalUrl = '/index.html';
-    expressjwt({secret: 'shhhh', algorithms: ['HS256'], algorithms: ['HS256']}).unless({path: '/index.html'})(req, res, function(err) {
+    expressjwt({secret: 'shhhh', algorithms: ['HS256']}).unless({path: '/index.html'})(req, res, function(err) {
       assert.ok(!err);
     });
   });
@@ -165,7 +165,7 @@ describe('failure tests', function () {
     }
 
     expressjwt({
-      secret: 'shhhhhh', algorithms: ['HS256'],
+      secret: secret, algorithms: ['HS256'],
       getToken: getTokenThatThrowsError
     })(req, res, function(err) {
       assert.ok(err);
