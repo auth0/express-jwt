@@ -197,6 +197,26 @@ describe('failure tests', function () {
     });
   });
 
+  it('should use errors thrown from custom getToken function that takes a callback', function() {
+    var secret = 'shhhhhh';
+
+    var req = {};
+    var res = {};
+
+    function getTokenThatThrowsError(req, cb) {
+      process.nextTick(function(){ return cb(new UnauthorizedError('invalid_token', { message: 'Invalid token!' })) });
+    }
+
+    expressjwt({
+      secret: secret, algorithms: ['HS256'],
+      getToken: getTokenThatThrowsError
+    })(req, res, function(err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.message, 'Invalid token!');
+    });
+  });
+
   it('should throw error when signature is wrong', function() {
     var secret = "shhh";
     var token = jwt.sign({foo: 'bar', iss: 'http://www'}, secret);
@@ -378,6 +398,29 @@ describe('work tests', function () {
       secret: secret,
       algorithms: ['HS256'],
       getToken: getTokenFromQuery
+    })(req, res, function() {
+      assert.equal('bar', req.user.foo);
+    });
+  });
+
+
+  it('should work with a custom getToken function that takes a callback', function() {
+    var secret = 'shhhhhh';
+    var token = jwt.sign({foo: 'bar'}, secret);
+
+    var req = {};
+    var res = {};
+    req.query = {};
+    req.query.token = token;
+
+    function getTokenFromQueryCallback(req, cb) {
+      process.nextTick(function(){ return cb(null, req.query.token) });
+    }
+
+    expressjwt({
+      secret: secret,
+      algorithms: ['HS256'],
+      getToken: getTokenFromQueryCallback
     })(req, res, function() {
       assert.equal('bar', req.user.foo);
     });
