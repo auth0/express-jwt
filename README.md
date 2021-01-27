@@ -71,13 +71,13 @@ jwt({
 });
 ```
 
-To only protect specific paths (e.g. beginning with `/api`), use [express router](https://expressjs.com/en/4x/api.html#app.use) like so:
+To only protect specific paths (e.g. beginning with `/api`), use [express router](https://expressjs.com/en/4x/api.html#app.use) call `use`, like so:
 
 ```javascript
 app.use('/api', jwt({ secret: 'shhhhhhared-secret', algorithms: ['HS256']}));
 ```
 
-Or, the other way around, if you want to to make some paths unprotected as follows:
+Or, the other way around, if you want to make some paths unprotected, cal `unless` like so.
 
 ```javascript
 app.use(
