@@ -2,6 +2,8 @@
 
 [![Build](https://travis-ci.org/auth0/express-jwt.png)](http://travis-ci.org/auth0/express-jwt)
 
+> :information_source:  **Maintenance Advisory:**  With the release of [express-oauth2-jwt-bearer](https://github.com/auth0/node-oauth2-jwt-bearer/tree/main/packages/express-oauth2-jwt-bearer), we will no longer be adding new features to this library, however we will continue to maintain this library and fix issues.
+
 This module provides Express middleware for validating JWTs ([JSON Web Tokens](https://jwt.io)) through the [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/) module. The decoded JWT payload is available on the request object.
 
 ## Install
