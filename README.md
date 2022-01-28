@@ -96,7 +96,7 @@ The token can also be attached to the `result` object with the `resultProperty` 
 jwt({ secret: publicKey, algorithms: ['RS256'], resultProperty: 'locals.user' });
 ```
 
-Both `resultProperty` and `requestProperty` utilize [lodash.set](https://lodash.com/docs/4.17.2#set) and will accept nested property paths.
+Both `resultProperty` and `requestProperty` utilize [lodash.set](https://lodash.com/docs/4.17.15#set) and will accept nested property paths.
 
 ### Customizing Token Location
 
