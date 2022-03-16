@@ -27,21 +27,32 @@
     "url": "https://www.auth0.com/"
   },
   "license": "MIT",
-  "main": "./lib",
+  "main": "./dist",
   "dependencies": {
-    "async": "^3.2.2",
     "express-unless": "^1.0.0",
-    "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.21"
+    "jsonwebtoken": "^8.1.0"
   },
   "devDependencies": {
-    "conventional-changelog": "~1.1.0",
-    "mocha": "^7.1.1"
+    "@types/express-unless": "^0.5.3",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/mocha": "^9.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "conventional-changelog": "^3.1.25",
+    "eslint": "^8.11.0",
+    "express": "^4.17.3",
+    "mocha": "^9.2.2",
+    "prettier": "^2.6.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
   },
   "engines": {
     "node": ">= 8.0.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --reporter spec"
+    "build": "rm -rf dist ; tsc",
+    "prepare": "npm run build",
+    "test": "mocha --reporter spec --require ts-node/register test/**",
+    "lint": "eslint --fix --ext .ts ./src"
   }
 }
