@@ -40,7 +40,7 @@ export const expressjwt = (options: Params) => {
       if (req.method === 'OPTIONS' && 'access-control-request-headers' in req.headers) {
         const hasAuthInAccessControl = req.headers['access-control-request-headers']
           .split(',')
-          .map(header => header.trim())
+          .map(header => header.trim().toLowerCase())
           .includes('authorization');
         if (hasAuthInAccessControl) {
           return next();
