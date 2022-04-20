@@ -3,9 +3,30 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.4.0 - 2022-04-20
+
+- handle authorization header in cors when is upper cased. fixes #180, #173 ([ab0ee806416e3a5a48ef8a1017a298e1a666b17a](https://github.com/auth0/express-jwt/commit/ab0ee806416e3a5a48ef8a1017a298e1a666b17a)), closes [#180](https://github.com/auth0/express-jwt/issues/180) [#173](https://github.com/auth0/express-jwt/issues/173)
+
+## 7.3.0 - 2022-04-20
+
+- add support for capital Authorization header. closes #200 ([6c0698b513e11ff1d4b152e070a627f5092be801](https://github.com/auth0/express-jwt/commit/6c0698b513e11ff1d4b152e070a627f5092be801)), closes [#200](https://github.com/auth0/express-jwt/issues/200)
+
+## 7.2.0 - 2022-04-20
+
+- Add example on how to enable jwt for specific path ([280511342522f11a90da93187a44af1a1b3cf5eb](https://github.com/auth0/express-jwt/commit/280511342522f11a90da93187a44af1a1b3cf5eb))
+- Fix link to auth0.com ([b04cb9dea9a9fb2dc999a8dbf30ba6f204f50d15](https://github.com/auth0/express-jwt/commit/b04cb9dea9a9fb2dc999a8dbf30ba6f204f50d15))
+- remove travis badge ([a854342c28f7186ec70e298124b4d650a26767b2](https://github.com/auth0/express-jwt/commit/a854342c28f7186ec70e298124b4d650a26767b2))
+- Update docs to continue error handling on mismatch ([627b358d07b19d299964a5ef18a772db9b6426e2](https://github.com/auth0/express-jwt/commit/627b358d07b19d299964a5ef18a772db9b6426e2))
+- Update README.md ([8d7af267189a49f42b88807d236647bd7398fde3](https://github.com/auth0/express-jwt/commit/8d7af267189a49f42b88807d236647bd7398fde3))
+
+## 7.1.0 - 2022-04-20
+
+- add support for async, closes #249 ([72236ec1cfb0e7847351c83908be1d84141e30f1](https://github.com/auth0/express-jwt/commit/72236ec1cfb0e7847351c83908be1d84141e30f1)), closes [#249](https://github.com/auth0/express-jwt/issues/249)
+- update changelog ([cb50ed43b2de9ae9be8643e7834640fa912ef367](https://github.com/auth0/express-jwt/commit/cb50ed43b2de9ae9be8643e7834640fa912ef367))
+
 ## 7.0.0 - 2022-04-20
 
-- Convert the project to typescript and improve types ([2b43ccb7252f2cc2fb3c2655a252fd7ae58ce0dd](https://github.com/auth0/express-jwt/commit/2b43ccb7252f2cc2fb3c2655a252fd7ae58ce0dd))
+- Convert the project to typescript and improve typescript ([2b43ccb7252f2cc2fb3c2655a252fd7ae58ce0dd](https://github.com/auth0/express-jwt/commit/2b43ccb7252f2cc2fb3c2655a252fd7ae58ce0dd))
 
 ## 6.1.2 - 2022-04-20
 
@@ -80,29 +101,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 3.3.0 - 2015-11-09
 
 - add support for nested properties in requestProperty. closes #94 ([6b7a7349910c530d3c0f986c267276930883918f](https://github.com/auth0/express-jwt/commit/6b7a7349910c530d3c0f986c267276930883918f)), closes [#94](https://github.com/auth0/express-jwt/issues/94)
-
-## 3.2.0 - 2015-11-09
-
-- added documentation on setting base64 encoding flag ([e4cddfdc432b02d48bd61b627da7c927df79d6fc](https://github.com/auth0/express-jwt/commit/e4cddfdc432b02d48bd61b627da7c927df79d6fc))
-- added documentation on setting base64 encoding flag ([0ebfd6c125314d83e98df93b9d75b91287e44c49](https://github.com/auth0/express-jwt/commit/0ebfd6c125314d83e98df93b9d75b91287e44c49))
-- added documentation on setting base64 encoding flag ([cb04d571a098e49d5dcc5d9bf15481bc6266b598](https://github.com/auth0/express-jwt/commit/cb04d571a098e49d5dcc5d9bf15481bc6266b598))
-- Clarify credentialsRequired remarks ([80fae765044ea8506cf89e1f6238ce4e12ad8d6e](https://github.com/auth0/express-jwt/commit/80fae765044ea8506cf89e1f6238ce4e12ad8d6e))
-- Tweak of description, code sample, and location ([f3024e2c4ba5ba5896983520ff9410dcc30c92e5](https://github.com/auth0/express-jwt/commit/f3024e2c4ba5ba5896983520ff9410dcc30c92e5))
-- Use npm v2 in CI build ([da3ad2bba2eae5febf1d1fc9eb04ad2c46302fd4](https://github.com/auth0/express-jwt/commit/da3ad2bba2eae5febf1d1fc9eb04ad2c46302fd4))
-- Verify token before checking revoke ([d75cec869dc9a37b6199c7615bbfa77dae97aa05](https://github.com/auth0/express-jwt/commit/d75cec869dc9a37b6199c7615bbfa77dae97aa05))
-
-## 3.1.0 - 2015-09-09
-
-- Changes the README describing unless and linking to the express unless github repo. ([6447a034fb7dd44526464e02319802f15f1e5315](https://github.com/auth0/express-jwt/commit/6447a034fb7dd44526464e02319802f15f1e5315))
-- Expand on what is possible with path param for unless() and give link to express-unless so the user knows that is what is being utilized. ([f13cd5f0d55154e551b11e872668879180979640](https://github.com/auth0/express-jwt/commit/f13cd5f0d55154e551b11e872668879180979640))
-- fix typo ([c39e1d1036a05b5bd3d3f7a46a03f825542c1027](https://github.com/auth0/express-jwt/commit/c39e1d1036a05b5bd3d3f7a46a03f825542c1027))
-- Fix typo on README.md ([bdab49c5c4de4a154b3043f4684a60584279d36e](https://github.com/auth0/express-jwt/commit/bdab49c5c4de4a154b3043f4684a60584279d36e))
-- Merge README enhancement from @rustybailey ([71e5ec53b4d631cb6b8e5b7a691ab77636044612](https://github.com/auth0/express-jwt/commit/71e5ec53b4d631cb6b8e5b7a691ab77636044612)), closes [#81](https://github.com/auth0/express-jwt/issues/81)
-- Minor typo fix ([df62ee2bca84ca3990751ba3e567c95a6f3af86e](https://github.com/auth0/express-jwt/commit/df62ee2bca84ca3990751ba3e567c95a6f3af86e))
-- Optionally pass token headers to secret callback. ([988931b2fbbfb9f694a4c25c2f867a613f3f8a81](https://github.com/auth0/express-jwt/commit/988931b2fbbfb9f694a4c25c2f867a613f3f8a81))
-- Set express-unless minor version number. ([c262caf73ca64c2175717076538786da4397894c](https://github.com/auth0/express-jwt/commit/c262caf73ca64c2175717076538786da4397894c))
-- Tweak to make .unless comment a blockquote ([f1b099ed6af12e099d4c4f43d42bf4aec0c4df36](https://github.com/auth0/express-jwt/commit/f1b099ed6af12e099d4c4f43d42bf4aec0c4df36))
-- Update package.json ([88a2be2d89e6772d19463a94d8ada56b9832367d](https://github.com/auth0/express-jwt/commit/88a2be2d89e6772d19463a94d8ada56b9832367d))
-- typo: revoked is the name of the argument ([3cacbf391e86b70807255dadc8fd5d88153b67e4](https://github.com/auth0/express-jwt/commit/3cacbf391e86b70807255dadc8fd5d88153b67e4))
-
-## 3.0.0 - 2015-04-11
