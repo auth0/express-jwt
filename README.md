@@ -130,10 +130,7 @@ app.use(
 If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, done)`:
 
 - `req` (`Object`) - The express `request` object.
-- `payload` (`Object`) - An object with the JWT claims.
-- `done` (`Function`) - A function with signature `function(err, secret)` to be invoked when the secret is retrieved.
-  - `err` (`Any`) - The error that occurred.
-  - `secret` (`String`) - The secret to use to verify the JWT.
+- `token` (`Object`) - An object with the JWT payload and headers.
 
 For example, if the secret varies based on the [JWT issuer](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
 
@@ -166,10 +163,7 @@ app.get(
 It is possible that some tokens will need to be revoked so they cannot be used any longer. You can provide a function as the `isRevoked` option. The signature of the function is `function(req, payload, done)`:
 
 - `req` (`Object`) - The express `request` object.
-- `payload` (`Object`) - An object with the JWT claims.
-- `done` (`Function`) - A function with signature `function(err, revoked)` to be invoked once the check to see if the token is revoked or not is complete.
-  - `err` (`Any`) - The error that occurred.
-  - `revoked` (`Boolean`) - `true` if the JWT is revoked, `false` otherwise.
+- `token` (`Object`) - An object with the JWT payload and headers.
 
 For example, if the `(iss, jti)` claim pair is used to identify a JWT:
 
