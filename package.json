@@ -27,7 +27,11 @@
     "url": "https://www.auth0.com/"
   },
   "license": "MIT",
-  "main": "./dist",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "dependencies": {
     "express-unless": "^1.0.0",
     "jsonwebtoken": "^8.5.1"
