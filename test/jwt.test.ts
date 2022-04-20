@@ -322,6 +322,30 @@ describe('work tests', function () {
     });
   });
 
+  it('should work with an async getToken function', function (done) {
+    const req = {} as ExpressJwtRequest;
+    const res = {} as express.Response;
+    const secret = 'shhhhhh';
+    const token = jwt.sign({ foo: 'bar' }, secret);
+
+    req.headers = {};
+    req.query = {};
+    req.query.token = token;
+
+    function getTokenFromQuery(req) {
+      return Promise.resolve(req.query.token);
+    }
+
+    expressjwt({
+      secret: secret,
+      algorithms: ['HS256'],
+      getToken: getTokenFromQuery
+    })(req, res, function () {
+      assert.equal(req.auth.foo, 'bar');
+      done();
+    });
+  });
+
   it('should work with a secretCallback function that accepts header argument', function (done) {
     const req = {} as ExpressJwtRequest;
     const res = {} as express.Response;

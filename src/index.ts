@@ -6,7 +6,7 @@ import { UnauthorizedError } from './errors/UnauthorizedError';
 export type GetVerificationKey = (req: express.Request, token: jwt.Jwt | undefined) => Promise<jwt.Secret>;
 export type IsRevoked = (req: express.Request, token: jwt.Jwt | undefined) => Promise<boolean>;
 
-type TokenGetter = (req: express.Request) => string | undefined;
+type TokenGetter = (req: express.Request) => string | Promise<string> | undefined;
 
 type Params = {
   secret: jwt.Secret | GetVerificationKey,
@@ -48,7 +48,7 @@ export const expressjwt = (options: Params) => {
       }
 
       if (options.getToken && typeof options.getToken === 'function') {
-        token = options.getToken(req);
+        token = await options.getToken(req);
       } else if (req.headers && req.headers.authorization) {
         const parts = req.headers.authorization.split(' ');
         if (parts.length == 2) {
