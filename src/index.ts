@@ -47,10 +47,11 @@ export const expressjwt = (options: Params) => {
         }
       }
 
+      const authorizationHeader = req.headers && 'Authorization' in req.headers ? 'Authorization' : 'authorization';
       if (options.getToken && typeof options.getToken === 'function') {
         token = await options.getToken(req);
-      } else if (req.headers && req.headers.authorization) {
-        const parts = req.headers.authorization.split(' ');
+      } else if (req.headers && req.headers[authorizationHeader]) {
+        const parts = (req.headers[authorizationHeader] as string).split(' ');
         if (parts.length == 2) {
           const scheme = parts[0];
           const credentials = parts[1];

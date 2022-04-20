@@ -265,13 +265,25 @@ describe('work tests', function () {
     });
   });
 
+  it('should work if Authorization header is capitalized (lambda environment)', function (done) {
+    const secret = Buffer.from('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
+    const token = jwt.sign({ foo: 'bar' }, secret);
+    const req = {} as ExpressJwtRequest;
+    const res = {} as express.Response;
+
+    req.headers = {};
+    req.headers.Authorization = 'Bearer ' + token;
+    expressjwt({ secret: secret, algorithms: ['HS256'] })(req, res, function (err) {
+      if (err) { return done(err); }
+      assert.equal(req.auth.foo, 'bar');
+      done();
+    });
+  });
+
   it('should work if no authorization header and credentials are not required', function (done) {
     const req = {} as express.Request;
     const res = {} as express.Response;
-    expressjwt({ secret: 'shhhh', algorithms: ['HS256'], credentialsRequired: false })(req, res, function (err) {
-      assert(typeof err === 'undefined');
-      done();
-    });
+    expressjwt({ secret: 'shhhh', algorithms: ['HS256'], credentialsRequired: false })(req, res, done);
   });
 
   it('should not work if no authorization header', function (done) {
