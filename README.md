@@ -1,7 +1,5 @@
 # express-jwt
 
-[![Build](https://travis-ci.org/auth0/express-jwt.png)](http://travis-ci.org/auth0/express-jwt)
-
 This module provides Express middleware for validating JWTs ([JSON Web Tokens](https://jwt.io)) through the [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/) module. The decoded JWT payload is available on the request object.
 
 ## Install
@@ -74,7 +72,7 @@ jwt({
 To only protect specific paths (e.g. beginning with `/api`), use [express router](https://expressjs.com/en/4x/api.html#app.use) call `use`, like so:
 
 ```javascript
-app.use('/api', jwt({ secret: 'shhhhhhared-secret', algorithms: ['HS256']}));
+app.use("/api", jwt({ secret: "shhhhhhared-secret", algorithms: ["HS256"] }));
 ```
 
 Or, the other way around, if you want to make some paths unprotected, cal `unless` like so.
@@ -206,8 +204,8 @@ The default behavior is to throw an error when the token is invalid, so you can 
 
 ```javascript
 app.use(function (err, req, res, next) {
-  if (err.name === 'UnauthorizedError') {
-    res.status(401).send('invalid token...');
+  if (err.name === "UnauthorizedError") {
+    res.status(401).send("invalid token...");
   } else {
     next(err);
   }
