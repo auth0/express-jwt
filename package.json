@@ -30,7 +30,7 @@
   "main": "./dist",
   "dependencies": {
     "express-unless": "^1.0.0",
-    "jsonwebtoken": "^8.1.0"
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "@types/express-unless": "^0.5.3",
