@@ -125,14 +125,14 @@ app.use(
 );
 ```
 
-### Multi-tenancy
+### Retrieve key dynamically
 
-If you are developing an application in which the secret used to sign tokens is not static, you can provide a callback function as the `secret` parameter. The function has the signature: `function(req, payload, done)`:
+If you need to obtain the key dynamically from other sources, you can pass a function in the `secret` parameter with the following parameters:
 
 - `req` (`Object`) - The express `request` object.
 - `token` (`Object`) - An object with the JWT payload and headers.
 
-For example, if the secret varies based on the [JWT issuer](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
+For example, if the secret varies based on the [issuer](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
 
 ```javascript
 var jwt = require("express-jwt");
