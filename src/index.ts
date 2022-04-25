@@ -13,6 +13,7 @@ type Params = {
   getToken?: TokenGetter,
   isRevoked?: IsRevoked,
   credentialsRequired?: boolean,
+  requestProperty?: string,
 } & jwt.VerifyOptions;
 
 export { UnauthorizedError } from './errors/UnauthorizedError';
@@ -32,7 +33,7 @@ export const expressjwt = (options: Params) => {
       async () => options.secret as jwt.Secret;
 
   const credentialsRequired = typeof options.credentialsRequired === 'undefined' ? true : options.credentialsRequired;
-
+  const requestProperty = typeof options.requestProperty === 'string' ? options.requestProperty : 'auth';
 
   const middleware = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     let token: string;
@@ -100,7 +101,7 @@ export const expressjwt = (options: Params) => {
       }
 
       const request = req as ExpressJwtRequest<jwt.JwtPayload | string>;
-      request.auth = decodedToken.payload;
+      request[requestProperty] = decodedToken.payload;
       next();
     } catch (err) {
       return next(err);
