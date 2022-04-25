@@ -8,6 +8,25 @@ This module provides Express middleware for validating JWTs ([JSON Web Tokens](h
 $ npm install express-jwt
 ```
 
+## API
+
+`expressjwt(options)`
+
+Options has the following paramters:
+
+- `secret: jwt.Secret | GetVerificationKey` (required): The secret as an string or a function to retrieve the secret.
+- `getToken?: TokenGetter` (optional): A function that receives the express `Request` and returns the token, by default it looks in the `Authorization` header.
+- `isRevoked?: IsRevoked` (optional): A function to verify if a token is revoked.
+- `credentialsRequired?: boolean` (optional): If its false, continue to the next middleware if the request does not contain a token instead of failing, defaults to true.
+- `requestProperty?: string` (optional): name of the property in the request object where the payload is set. Default to `req.auth`.
+- Plus... all the options available in the [jsonwebtoken verify function](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback).
+
+The available functions have the following interface:
+
+- `GetVerificationKey = (req: express.Request, token: jwt.Jwt | undefined) => Promise<jwt.Secret>;`
+- `IsRevoked = (req: express.Request, token: jwt.Jwt | undefined) => Promise<boolean>;`
+- `TokenGetter = (req: express.Request) => string | Promise<string> | undefined;`
+
 ## Usage
 
 Basic usage using an HS256 secret:
@@ -234,6 +253,13 @@ app.get(
   }
 );
 ```
+
+## Migration from v6
+
+1. The middleware function is now available as a named import rather than a default one: import { expressjwt } from 'express-jwt'
+2. The decoded JWT payload is now available as req.auth rather than req.user
+3. The `secret` function had `(req, header, payload, cb)`, now it can return a promise and receives `(req, token)`. `token` has `header` and `payload`.
+4. The `isRevoked` function had `(req, payload, cb)`, now it can return a promise and receives `(req, token)`. `token` has `header` and `payload`.
 
 ## Related Modules
 
