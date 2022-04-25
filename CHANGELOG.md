@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.5.0 - 2022-04-25
+
+- export TokenGetter ([eb7479b834fb0e052ffad4279394ce353bb13770](https://github.com/auth0/express-jwt/commit/eb7479b834fb0e052ffad4279394ce353bb13770))
+- improve readme and some types. Closes #283 ([1a67f69c8781179d3ce7e5f3de8ece40d31c1772](https://github.com/auth0/express-jwt/commit/1a67f69c8781179d3ce7e5f3de8ece40d31c1772)), closes [#283](https://github.com/auth0/express-jwt/issues/283)
+- restore requestProperty ([bf143d07497046b3e7921d3dd4bcbc18e2daeb67](https://github.com/auth0/express-jwt/commit/bf143d07497046b3e7921d3dd4bcbc18e2daeb67))
+
+## 7.4.3 - 2022-04-21
+
+- improve readme ([bd2515bec698604c645decd5be93e4f401263662](https://github.com/auth0/express-jwt/commit/bd2515bec698604c645decd5be93e4f401263662))
+
+## 7.4.2 - 2022-04-20
+
+- include '/dist' in package, closes #280 ([cf2665d5581e76ed5742e7c2f34b8d05f91cfd18](https://github.com/auth0/express-jwt/commit/cf2665d5581e76ed5742e7c2f34b8d05f91cfd18)), closes [#280](https://github.com/auth0/express-jwt/issues/280)
+
+## 7.4.1 - 2022-04-20
+
+- fix readme definition for revoked and secret callbacks ([9015cf729cfbbf1b28a9646cccbf26d523dce1de](https://github.com/auth0/express-jwt/commit/9015cf729cfbbf1b28a9646cccbf26d523dce1de))
+- update changelog ([05d7a78baaf76a2a881a95666b0ec7349729d957](https://github.com/auth0/express-jwt/commit/05d7a78baaf76a2a881a95666b0ec7349729d957))
+
 ## 7.4.0 - 2022-04-20
 
 - handle authorization header in cors when is upper cased. fixes #180, #173 ([ab0ee806416e3a5a48ef8a1017a298e1a666b17a](https://github.com/auth0/express-jwt/commit/ab0ee806416e3a5a48ef8a1017a298e1a666b17a)), closes [#180](https://github.com/auth0/express-jwt/issues/180) [#173](https://github.com/auth0/express-jwt/issues/173)
@@ -73,31 +92,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 5.2.0 - 2016-10-07
 
 - add changelog. closes #139 ([34dd51dde3fd83182bd076d9a9378626d17152f2](https://github.com/auth0/express-jwt/commit/34dd51dde3fd83182bd076d9a9378626d17152f2)), closes [#139](https://github.com/auth0/express-jwt/issues/139)
-
-## 5.1.0 - 2016-10-04
-
-- A cleaner way to detect a function ([b7235714def5b4b3b91ee2d955a6a82706792825](https://github.com/auth0/express-jwt/commit/b7235714def5b4b3b91ee2d955a6a82706792825))
-- allow other auth schemes if credentialsRequired is false. closes #129 ([fbf15bd3ccb8b71fe2434b0165492e53bf56d6cd](https://github.com/auth0/express-jwt/commit/fbf15bd3ccb8b71fe2434b0165492e53bf56d6cd)), closes [#129](https://github.com/auth0/express-jwt/issues/129)
-- handle error on invalid tokens. Closes #134 ([461710185e8cba665b81b77e14895eee45b4d076](https://github.com/auth0/express-jwt/commit/461710185e8cba665b81b77e14895eee45b4d076)), closes [#134](https://github.com/auth0/express-jwt/issues/134)
-- minor ([a2c54081f631b6c1670dc6b85730b6381a87972e](https://github.com/auth0/express-jwt/commit/a2c54081f631b6c1670dc6b85730b6381a87972e))
-
-## 5.0.0 - 2016-09-05
-
-- \*Expose UnauthorizedError ([a6a36058b949bbffaa5969e6435aaad5201651d8](https://github.com/auth0/express-jwt/commit/a6a36058b949bbffaa5969e6435aaad5201651d8))
-- 4.0.0 ([a7ab08aaf695da2a14880880ca449bc61e104198](https://github.com/auth0/express-jwt/commit/a7ab08aaf695da2a14880880ca449bc61e104198))
-- Added express-jwt-permissions link ([ef0b848b15ce7ec7148bfbb1a97ee6a9991f7251](https://github.com/auth0/express-jwt/commit/ef0b848b15ce7ec7148bfbb1a97ee6a9991f7251))
-- remove support for deprecated option ([b894ea25b0721305861f57dbec6982eb2a462e97](https://github.com/auth0/express-jwt/commit/b894ea25b0721305861f57dbec6982eb2a462e97))
-- Update middleware to throw when token is invalid when credentials aren't required ([fd58e8961fe6034e7136ea0b31218a299ddf5178](https://github.com/auth0/express-jwt/commit/fd58e8961fe6034e7136ea0b31218a299ddf5178))
-- upgrade jwt library ([01409b3dd99306520a498894293657a88778cdd5](https://github.com/auth0/express-jwt/commit/01409b3dd99306520a498894293657a88778cdd5))
-
-## 3.4.0 - 2016-05-06
-
-- doc: typo in README.md was fixed ([f6c2c3d95fd15b911f1ac6dcde0b3084df45a2fc](https://github.com/auth0/express-jwt/commit/f6c2c3d95fd15b911f1ac6dcde0b3084df45a2fc))
-- fixing syntax error in README for string value ([ae69114afe5ca84f39adfac8dc7e9b224eab5410](https://github.com/auth0/express-jwt/commit/ae69114afe5ca84f39adfac8dc7e9b224eab5410))
-- More lightweight dependency ([4861bbb9d906f8fbd8c494fe2dbc4fda0d7865c6](https://github.com/auth0/express-jwt/commit/4861bbb9d906f8fbd8c494fe2dbc4fda0d7865c6))
-- Readme fixed and license renamed ([0e9c88d592f6499bf4d4e212a39fdc50e7206832](https://github.com/auth0/express-jwt/commit/0e9c88d592f6499bf4d4e212a39fdc50e7206832))
-- Updated status responses to Express 4.x format ([a481bc8eb2a2e749e9bcff92496c53b5da53c9e0](https://github.com/auth0/express-jwt/commit/a481bc8eb2a2e749e9bcff92496c53b5da53c9e0))
-
-## 3.3.0 - 2015-11-09
-
-- add support for nested properties in requestProperty. closes #94 ([6b7a7349910c530d3c0f986c267276930883918f](https://github.com/auth0/express-jwt/commit/6b7a7349910c530d3c0f986c267276930883918f)), closes [#94](https://github.com/auth0/express-jwt/issues/94)
