@@ -6,7 +6,7 @@ import { UnauthorizedError } from './errors/UnauthorizedError';
 export type GetVerificationKey = (req: express.Request, token: jwt.Jwt | undefined) => Promise<jwt.Secret>;
 export type IsRevoked = (req: express.Request, token: jwt.Jwt | undefined) => Promise<boolean>;
 
-type TokenGetter = (req: express.Request) => string | Promise<string> | undefined;
+export type TokenGetter = (req: express.Request) => string | Promise<string> | undefined;
 
 type Params = {
   secret: jwt.Secret | GetVerificationKey,
