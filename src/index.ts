@@ -18,7 +18,7 @@ type Params = {
 export { UnauthorizedError } from './errors/UnauthorizedError';
 
 export type ExpressJwtRequest<T = jwt.JwtPayload> =
-  express.Request & { auth: T }
+  express.Request & { auth?: T }
 
 
 export const expressjwt = (options: Params) => {
