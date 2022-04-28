@@ -254,6 +254,27 @@ app.get(
 );
 ```
 
+If you use `credentialsRequired: false` then use `ExpressJwtRequestUnrequired`. This type defines `req.auth` as optional, example:
+
+```typescript
+import { expressjwt, ExpressJwtRequest } from "express-jwt";
+
+app.get(
+  "/protected",
+  expressjwt({
+    secret: "shhhhhhared-secret",
+    algorithms: ["HS256"],
+    credentialsRequired: false,
+  }),
+  function (req: ExpressJwtRequestUnrequired, res: express.Response) {
+    if (!req.auth?.admin) {
+      return res.sendStatus(401);
+    }
+    res.sendStatus(200);
+  }
+);
+```
+
 ## Migration from v6
 
 1. The middleware function is now available as a named import rather than a default one: import { expressjwt } from 'express-jwt'
