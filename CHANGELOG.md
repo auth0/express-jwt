@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.5.2 - 2022-04-27
+
+- export another type for credentialsRequired: false / ExpressJwtRequestUnrequired ([1bdb6f3d0cc5f61b7a7b097f700d20cb337d4bef](https://github.com/auth0/express-jwt/commit/1bdb6f3d0cc5f61b7a7b097f700d20cb337d4bef))
+
+## 7.5.1 - 2022-04-27
+
+- make req.auth optional in the ExpressJwtRequest type ([496fda4a0a20292ca70055b6ab8fdf50414ffa2b](https://github.com/auth0/express-jwt/commit/496fda4a0a20292ca70055b6ab8fdf50414ffa2b))
+- update changelog ([727b57ddfec1f1c5ee4e16cb335ad1ae5a3c131f](https://github.com/auth0/express-jwt/commit/727b57ddfec1f1c5ee4e16cb335ad1ae5a3c131f))
+
 ## 7.5.0 - 2022-04-25
 
 - export TokenGetter ([eb7479b834fb0e052ffad4279394ce353bb13770](https://github.com/auth0/express-jwt/commit/eb7479b834fb0e052ffad4279394ce353bb13770))
@@ -75,20 +84,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - fix dependencies vulnerabilities and test against 8, 10 and 12 from now on ([178928266c3cf2fed3f9e013722cc8d29d4672ba](https://github.com/auth0/express-jwt/commit/178928266c3cf2fed3f9e013722cc8d29d4672ba))
 - fix license field ([f4f4d1d6bf78d498688f1b1936551546715d01e9](https://github.com/auth0/express-jwt/commit/f4f4d1d6bf78d498688f1b1936551546715d01e9))
-
-## 5.3.0 - 2017-04-17
-
-- 5.3.0 ([9ff413a6350ad0117ddef82e9da7eaeb55061e0b](https://github.com/auth0/express-jwt/commit/9ff413a6350ad0117ddef82e9da7eaeb55061e0b))
-- Add documentation for resultProperty ([3acc3730900479f92e1f6e480ac14905106e83d4](https://github.com/auth0/express-jwt/commit/3acc3730900479f92e1f6e480ac14905106e83d4))
-- Add resultProperty option ([c84b69f52b29abbafc36506306dddf1e5d1c4f9b](https://github.com/auth0/express-jwt/commit/c84b69f52b29abbafc36506306dddf1e5d1c4f9b))
-- bump jsonwebtoken version to 7 ([d42f5df0f075de37ffb1f731bb7bdbd9b2c87f4b](https://github.com/auth0/express-jwt/commit/d42f5df0f075de37ffb1f731bb7bdbd9b2c87f4b))
-- Ensure proper error messages end up in stack trace ([657592d9aef4e28490773022ff06bc36432df82b](https://github.com/auth0/express-jwt/commit/657592d9aef4e28490773022ff06bc36432df82b))
-- Fix syntax highlighting ([56d74613f797646732c40e7cafd903af23f35397](https://github.com/auth0/express-jwt/commit/56d74613f797646732c40e7cafd903af23f35397))
-- Test for resultProperty option ([13ae992c7c78f79a254cac2741ab4a7cb9752eaf](https://github.com/auth0/express-jwt/commit/13ae992c7c78f79a254cac2741ab4a7cb9752eaf))
-- UnauthorizedError exports directly from the module ([7a57149a9fcbf86d73e41904768e95ad8ddf5a81](https://github.com/auth0/express-jwt/commit/7a57149a9fcbf86d73e41904768e95ad8ddf5a81))
-- update jsonwebtoken ([b2207c823e34dc1a8ab89cb50aebe77b6e35f668](https://github.com/auth0/express-jwt/commit/b2207c823e34dc1a8ab89cb50aebe77b6e35f668))
-- Update package.json ([f2779d7a01cb53ad51f2bcf43f942b1299bba798](https://github.com/auth0/express-jwt/commit/f2779d7a01cb53ad51f2bcf43f942b1299bba798))
-
-## 5.2.0 - 2016-10-07
-
-- add changelog. closes #139 ([34dd51dde3fd83182bd076d9a9378626d17152f2](https://github.com/auth0/express-jwt/commit/34dd51dde3fd83182bd076d9a9378626d17152f2)), closes [#139](https://github.com/auth0/express-jwt/issues/139)
