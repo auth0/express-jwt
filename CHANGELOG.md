@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.6.0 - 2022-05-02
+
+- add ExpressJwtRequestUnrequired to the readme ([3890f53f87b0a84dccaafd8de5a43d3c1dfeae89](https://github.com/auth0/express-jwt/commit/3890f53f87b0a84dccaafd8de5a43d3c1dfeae89))
+- add SecretCallback[Long] back for backward compatibility ([c24078e285908cad1c2ac0e63482a75ebf7d7328](https://github.com/auth0/express-jwt/commit/c24078e285908cad1c2ac0e63482a75ebf7d7328))
+- update changelog ([d3a8e80dec3a6c261f840ad763487a16a47bbc4b](https://github.com/auth0/express-jwt/commit/d3a8e80dec3a6c261f840ad763487a16a47bbc4b))
+
 ## 7.5.2 - 2022-04-27
 
 - export another type for credentialsRequired: false / ExpressJwtRequestUnrequired ([1bdb6f3d0cc5f61b7a7b097f700d20cb337d4bef](https://github.com/auth0/express-jwt/commit/1bdb6f3d0cc5f61b7a7b097f700d20cb337d4bef))
