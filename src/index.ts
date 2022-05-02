@@ -19,7 +19,7 @@ type Params = {
   isRevoked?: IsRevoked,
   credentialsRequired?: boolean,
   requestProperty?: string,
-  algorithms: jwt.Algorithm[] | undefined;
+  algorithms: jwt.Algorithm[];
 } & jwt.VerifyOptions;
 
 export { UnauthorizedError } from './errors/UnauthorizedError';
