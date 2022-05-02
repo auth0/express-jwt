@@ -4,6 +4,12 @@ import expressUnless from 'express-unless';
 import { UnauthorizedError } from './errors/UnauthorizedError';
 
 export type GetVerificationKey = (req: express.Request, token: jwt.Jwt | undefined) => jwt.Secret | Promise<jwt.Secret>;
+
+//deprecates key callback types for backward compatibility with v6
+export type SecretCallback = GetVerificationKey;
+export type SecretCallbackLong = GetVerificationKey;
+//
+
 export type IsRevoked = (req: express.Request, token: jwt.Jwt | undefined) => boolean | Promise<boolean>;
 export type TokenGetter = (req: express.Request) => string | Promise<string> | undefined;
 
