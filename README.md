@@ -244,34 +244,13 @@ To get the full types of the parameters object install also `@types/jsonwebtoken
 An `ExpressJwtRequest` type is provided which extends `express.Request` with the `auth` property.
 
 ```typescript
-import { expressjwt, ExpressJwtRequest } from "express-jwt";
+import { expressjwt, Request as JWTRequest } from "express-jwt";
 
 app.get(
   "/protected",
   expressjwt({ secret: "shhhhhhared-secret", algorithms: ["HS256"] }),
-  function (req: ExpressJwtRequest, res: express.Response) {
-    if (!req.auth.admin) return res.sendStatus(401);
-    res.sendStatus(200);
-  }
-);
-```
-
-If you use `credentialsRequired: false` then use `ExpressJwtRequestUnrequired`. This type defines `req.auth` as optional, example:
-
-```typescript
-import { expressjwt, ExpressJwtRequest } from "express-jwt";
-
-app.get(
-  "/protected",
-  expressjwt({
-    secret: "shhhhhhared-secret",
-    algorithms: ["HS256"],
-    credentialsRequired: false,
-  }),
-  function (req: ExpressJwtRequestUnrequired, res: express.Response) {
-    if (!req.auth?.admin) {
-      return res.sendStatus(401);
-    }
+  function (req: JWTRequest, res: express.Response) {
+    if (!req.auth?.admin) return res.sendStatus(401);
     res.sendStatus(200);
   }
 );

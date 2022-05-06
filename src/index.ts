@@ -3,33 +3,94 @@ import * as express from 'express';
 import expressUnless from 'express-unless';
 import { UnauthorizedError } from './errors/UnauthorizedError';
 
+/**
+ * A function that defines how to retrieve the verification key given the express request and the JWT.
+ */
 export type GetVerificationKey = (req: express.Request, token: jwt.Jwt | undefined) => jwt.Secret | Promise<jwt.Secret>;
 
-//deprecates key callback types for backward compatibility with v6
+/**
+ * @deprecated use GetVerificationKey
+ */
 export type SecretCallback = GetVerificationKey;
-export type SecretCallbackLong = GetVerificationKey;
-//
 
+/**
+ * @deprecated use GetVerificationKey
+ */
+export type SecretCallbackLong = GetVerificationKey;
+
+/**
+ * A function to check if a token is revoked
+ */
 export type IsRevoked = (req: express.Request, token: jwt.Jwt | undefined) => boolean | Promise<boolean>;
+
+/**
+ * A function to customize how a token is retrieved from the express request.
+ */
 export type TokenGetter = (req: express.Request) => string | Promise<string> | undefined;
 
 type Params = {
+  /**
+   * The Key or a function to retrieve the key used to verify the JWT.
+   */
   secret: jwt.Secret | GetVerificationKey,
+
+  /**
+   * Defines how to retrieves the token from the request object.
+   */
   getToken?: TokenGetter,
+
+  /**
+   * Defines how to verify if a token is revoked.
+   */
   isRevoked?: IsRevoked,
+
+  /**
+   * If sets to true, continue to the next middleware when the
+   * request doesn't include a token without failing.
+   *
+   * @default true
+   */
   credentialsRequired?: boolean,
+
+  /**
+   * Allows to customize the name of the property in the request object
+   * where the decoded payload is set.
+   * @default 'auth'
+   */
   requestProperty?: string,
+
+  /**
+   * List of JWT algorithms allowed.
+   */
   algorithms: jwt.Algorithm[];
 } & jwt.VerifyOptions;
 
 export { UnauthorizedError } from './errors/UnauthorizedError';
 
+/**
+ * @deprecated this breaks tsc when using strict: true
+ */
 export type ExpressJwtRequest<T = jwt.JwtPayload> =
   express.Request & { auth: T }
 
+/**
+ * @deprecated use Request<T>
+ */
 export type ExpressJwtRequestUnrequired<T = jwt.JwtPayload> =
   express.Request & { auth?: T }
 
+/**
+ * The Express Request including the "auth" property with the decoded JWT payload.
+ */
+export type Request<T = jwt.JwtPayload> =
+  express.Request & { auth?: T };
+
+/**
+ * Returns an express middleware to verify JWTs.
+ *
+ * @param options {Params}
+ * @returns
+ */
 export const expressjwt = (options: Params) => {
   if (!options?.secret) throw new RangeError('express-jwt: `secret` is a required option');
   if (!options.algorithms) throw new RangeError('express-jwt: `algorithms` is a required option');
@@ -108,7 +169,7 @@ export const expressjwt = (options: Params) => {
         throw new UnauthorizedError('revoked_token', { message: 'The token has been revoked.' });
       }
 
-      const request = req as ExpressJwtRequest<jwt.JwtPayload | string>;
+      const request = req as Request<jwt.JwtPayload | string>;
       request[requestProperty] = decodedToken.payload;
       next();
     } catch (err) {
