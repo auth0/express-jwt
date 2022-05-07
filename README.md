@@ -12,13 +12,13 @@ $ npm install express-jwt
 
 `expressjwt(options)`
 
-Options has the following paramters:
+Options has the following parameters:
 
-- `secret: jwt.Secret | GetVerificationKey` (required): The secret as an string or a function to retrieve the secret.
+- `secret: jwt.Secret | GetVerificationKey` (required): The secret as a string or a function to retrieve the secret.
 - `getToken?: TokenGetter` (optional): A function that receives the express `Request` and returns the token, by default it looks in the `Authorization` header.
 - `isRevoked?: IsRevoked` (optional): A function to verify if a token is revoked.
 - `credentialsRequired?: boolean` (optional): If its false, continue to the next middleware if the request does not contain a token instead of failing, defaults to true.
-- `requestProperty?: string` (optional): name of the property in the request object where the payload is set. Default to `req.auth`.
+- `requestProperty?: string` (optional): Name of the property in the request object where the payload is set. Default to `req.auth`.
 - Plus... all the options available in the [jsonwebtoken verify function](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback).
 
 The available functions have the following interface:
