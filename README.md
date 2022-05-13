@@ -239,8 +239,6 @@ app.use(
 
 ## Typescript
 
-To get the full types of the parameters object install also `@types/jsonwebtoken`.
-
 An `ExpressJwtRequest` type is provided which extends `express.Request` with the `auth` property.
 
 ```typescript
