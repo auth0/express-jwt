@@ -33,12 +33,12 @@
     "/dist"
   ],
   "dependencies": {
+    "@types/express-unless": "^0.5.3",
+    "@types/jsonwebtoken": "^8.5.8",
     "express-unless": "^1.0.0",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
-    "@types/express-unless": "^0.5.3",
-    "@types/jsonwebtoken": "^8.5.8",
     "@types/mocha": "^9.1.0",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
