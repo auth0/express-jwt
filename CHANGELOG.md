@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.7.1 - 2022-05-13
+
+- fix readme and package-lock ([7a02ca76c5d7842cfa8b256dcc89dcef1ffbcdc1](https://github.com/auth0/express-jwt/commit/7a02ca76c5d7842cfa8b256dcc89dcef1ffbcdc1))
+- build(deps): required runtime types ([f3f5af5c214241b4f92b91c49db8586ec20e4526](https://github.com/auth0/express-jwt/commit/f3f5af5c214241b4f92b91c49db8586ec20e4526))
+- docs: fix tiny typo ([07e771857489b6344a8dc457069d040a76e84230](https://github.com/auth0/express-jwt/commit/07e771857489b6344a8dc457069d040a76e84230))
+
+## 7.7.0 - 2022-05-06
+
+- deprecate ExpressJwtRequest in favor of Request with optional auth, closes #284 ([de169def56f98f4237741aa6755d0c5e248bd561](https://github.com/auth0/express-jwt/commit/de169def56f98f4237741aa6755d0c5e248bd561)), closes [#284](https://github.com/auth0/express-jwt/issues/284)
+
+## 7.6.2 - 2022-05-02
+
+- remove undefined from algorhitms fix #285 ([587238bd0ad7a59f784daf9f626b9bf9abc7e029](https://github.com/auth0/express-jwt/commit/587238bd0ad7a59f784daf9f626b9bf9abc7e029)), closes [#285](https://github.com/auth0/express-jwt/issues/285)
+
+## 7.6.1 - 2022-05-02
+
+- add note about @types/jsonwebtoken in readme ([03c8419d6fc78c9029a7b474d3aede7f94e80121](https://github.com/auth0/express-jwt/commit/03c8419d6fc78c9029a7b474d3aede7f94e80121))
+- make algorithms a required parameter in types. closes #285 ([097a1df0d7ba511afce9578e4cf45bca2589b253](https://github.com/auth0/express-jwt/commit/097a1df0d7ba511afce9578e4cf45bca2589b253)), closes [#285](https://github.com/auth0/express-jwt/issues/285)
+- update changelog ([9d0f02debb7a3db83edbc9f9b4b6d46993e6a4f4](https://github.com/auth0/express-jwt/commit/9d0f02debb7a3db83edbc9f9b4b6d46993e6a4f4))
+
 ## 7.6.0 - 2022-05-02
 
 - add ExpressJwtRequestUnrequired to the readme ([3890f53f87b0a84dccaafd8de5a43d3c1dfeae89](https://github.com/auth0/express-jwt/commit/3890f53f87b0a84dccaafd8de5a43d3c1dfeae89))
@@ -69,24 +89,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 6.1.1 - 2022-02-21
 
 - Fix prototype pollution vulnerability. ([551bf40a74553a13e7314488b32648d474c182f7](https://github.com/auth0/express-jwt/commit/551bf40a74553a13e7314488b32648d474c182f7))
-
-## 6.1.0 - 2021-08-11
-
-- Update readme on 6.0.0 changes ([43b7921c2cb60d781655ac5527a8a47d9fb428fc](https://github.com/auth0/express-jwt/commit/43b7921c2cb60d781655ac5527a8a47d9fb428fc))
-- Updated changelog ([ed743a8fa28d32de3166ab6cf5bae1315669678a](https://github.com/auth0/express-jwt/commit/ed743a8fa28d32de3166ab6cf5bae1315669678a))
-
-## 6.0.0 - 2020-06-29
-
-- Made algorithms mandatory ([304a1c5968aed7c4c520035426fc09142156669d](https://github.com/auth0/express-jwt/commit/304a1c5968aed7c4c520035426fc09142156669d))
-
-## 5.3.3 - 2020-04-07
-
-- Add a note about OAuth2 bearer tokens ([c5d841966b70584fa51f766d7cb2b17ae1db6681](https://github.com/auth0/express-jwt/commit/c5d841966b70584fa51f766d7cb2b17ae1db6681))
-- Make clearer sections in the Readme ([8662579f1af7ba1d8b6a35718243bd719600a23f](https://github.com/auth0/express-jwt/commit/8662579f1af7ba1d8b6a35718243bd719600a23f))
-- Update Readme and use a consistent JS style for code examples ([888f0e9d2cb3026a50b2812a0eebe7a5d5011744](https://github.com/auth0/express-jwt/commit/888f0e9d2cb3026a50b2812a0eebe7a5d5011744))
-- Update README.md ([d3e86bffb6f0c629cbb95e9b27432e4860d8bc5a](https://github.com/auth0/express-jwt/commit/d3e86bffb6f0c629cbb95e9b27432e4860d8bc5a))
-
-## 5.3.2 - 2020-04-07
-
-- fix dependencies vulnerabilities and test against 8, 10 and 12 from now on ([178928266c3cf2fed3f9e013722cc8d29d4672ba](https://github.com/auth0/express-jwt/commit/178928266c3cf2fed3f9e013722cc8d29d4672ba))
-- fix license field ([f4f4d1d6bf78d498688f1b1936551546715d01e9](https://github.com/auth0/express-jwt/commit/f4f4d1d6bf78d498688f1b1936551546715d01e9))
