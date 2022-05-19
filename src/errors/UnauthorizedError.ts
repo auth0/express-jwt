@@ -13,6 +13,7 @@ export class UnauthorizedError extends Error {
 
   constructor(code: ErrorCode, error: ErrorLike) {
     super(error.message);
+    Object.setPrototypeOf(this, UnauthorizedError.prototype);
     this.code = code;
     this.status = 401;
     this.name = 'UnauthorizedError';
