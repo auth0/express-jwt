@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.7.3 - 2022-05-30
+
+- Fix tsc build error for express-unless ([e1fe1d264bc5363e008d23fea9d8c5d2ac0d8198](https://github.com/auth0/express-jwt/commit/e1fe1d264bc5363e008d23fea9d8c5d2ac0d8198))
+- Remove esModuleInterop and fix assert import in tests ([9ccf0cfd6aaa4cc61fce2f8ccdb961c4b0358201](https://github.com/auth0/express-jwt/commit/9ccf0cfd6aaa4cc61fce2f8ccdb961c4b0358201))
+
+## 7.7.2 - 2022-05-19
+
+- fix instaceof comparison for UnauthorizedError. closes #292 ([6c87fe401ecba868feda1ffa530082c7c539321a](https://github.com/auth0/express-jwt/commit/6c87fe401ecba868feda1ffa530082c7c539321a)), closes [#292](https://github.com/auth0/express-jwt/issues/292)
+- update changelog ([b1344fa7f6f9dd3d27115a9107b3ef4323733895](https://github.com/auth0/express-jwt/commit/b1344fa7f6f9dd3d27115a9107b3ef4323733895))
+
 ## 7.7.1 - 2022-05-13
 
 - fix readme and package-lock ([7a02ca76c5d7842cfa8b256dcc89dcef1ffbcdc1](https://github.com/auth0/express-jwt/commit/7a02ca76c5d7842cfa8b256dcc89dcef1ffbcdc1))
@@ -81,11 +91,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 7.0.0 - 2022-04-20
 
 - Convert the project to typescript and improve typescript ([2b43ccb7252f2cc2fb3c2655a252fd7ae58ce0dd](https://github.com/auth0/express-jwt/commit/2b43ccb7252f2cc2fb3c2655a252fd7ae58ce0dd))
-
-## 6.1.2 - 2022-04-20
-
-- fix: package.json & package-lock.json to reduce vulnerabilities ([c7881ad378063236d85b1e1b0f4a252b63b8e75b](https://github.com/auth0/express-jwt/commit/c7881ad378063236d85b1e1b0f4a252b63b8e75b))
-
-## 6.1.1 - 2022-02-21
-
-- Fix prototype pollution vulnerability. ([551bf40a74553a13e7314488b32648d474c182f7](https://github.com/auth0/express-jwt/commit/551bf40a74553a13e7314488b32648d474c182f7))
