@@ -1,5 +1,5 @@
 import { UnauthorizedError } from '../src/errors/UnauthorizedError';
-import assert from 'assert';
+import * as assert from 'assert';
 
 describe('Unauthorized Error', () => {
   const e = new UnauthorizedError('credentials_bad_format', new Error('a'));

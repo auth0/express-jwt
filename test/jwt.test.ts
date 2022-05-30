@@ -2,7 +2,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as express from 'express';
 import { expressjwt, UnauthorizedError, ExpressJwtRequest, GetVerificationKey } from '../src';
-import assert from 'assert';
+import * as assert from 'assert';
 
 
 describe('failure tests', function () {

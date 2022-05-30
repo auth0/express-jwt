@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as express from 'express';
 import { expressjwt, ExpressJwtRequest, GetVerificationKey } from '../src';
-import assert from 'assert';
+import * as assert from 'assert';
 
 describe('multitenancy', function () {
   const req = {} as ExpressJwtRequest;
