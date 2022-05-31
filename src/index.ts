@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import * as express from 'express';
-import * as expressUnless from 'express-unless';
+import { unless } from 'express-unless';
 import { UnauthorizedError } from './errors/UnauthorizedError';
 
 /**
@@ -177,7 +177,7 @@ export const expressjwt = (options: Params) => {
     }
   };
 
-  middleware.unless = expressUnless;
+  middleware.unless = unless;
 
   return middleware;
 }

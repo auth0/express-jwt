@@ -35,7 +35,7 @@
   "dependencies": {
     "@types/express-unless": "^0.5.3",
     "@types/jsonwebtoken": "^8.5.8",
-    "express-unless": "^1.0.0",
+    "express-unless": "^2.0.1",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
