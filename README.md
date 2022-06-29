@@ -94,7 +94,7 @@ To only protect specific paths (e.g. beginning with `/api`), use [express router
 app.use("/api", jwt({ secret: "shhhhhhared-secret", algorithms: ["HS256"] }));
 ```
 
-Or, the other way around, if you want to make some paths unprotected, cal `unless` like so.
+Or, the other way around, if you want to make some paths unprotected, call `unless` like so.
 
 ```javascript
 app.use(
