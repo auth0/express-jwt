@@ -33,9 +33,8 @@
     "/dist"
   ],
   "dependencies": {
-    "@types/express-unless": "^0.5.3",
     "@types/jsonwebtoken": "^8.5.8",
-    "express-unless": "^2.0.2",
+    "express-unless": "^2.1.3",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
