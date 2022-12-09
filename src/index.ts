@@ -28,7 +28,7 @@ export type IsRevoked = (req: express.Request, token: jwt.Jwt | undefined) => bo
  */
 export type TokenGetter = (req: express.Request) => string | Promise<string> | undefined;
 
-type Params = {
+export type Params = {
   /**
    * The Key or a function to retrieve the key used to verify the JWT.
    */
