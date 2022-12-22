@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.1.0 - 2022-12-22
+
+- update type to match jwks-rsa ([bcad8af9cad82b3777cc38d1c05864a35f82bc53](https://github.com/auth0/express-jwt/commit/bcad8af9cad82b3777cc38d1c05864a35f82bc53))
+- feat: export middleware options type. closes #308 ([25a30f0d50c02cc75ab17b09f3592e76e09f9666](https://github.com/auth0/express-jwt/commit/25a30f0d50c02cc75ab17b09f3592e76e09f9666)), closes [#308](https://github.com/auth0/express-jwt/issues/308)
+
 ## 8.0.0 - 2022-12-22
 
 - Upgrade jsonwebtoken to v9. https://github.com/advisories/GHSA-27h2-hvpr-p74q .
