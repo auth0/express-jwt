@@ -24,6 +24,11 @@ export type SecretCallbackLong = GetVerificationKey;
 export type IsRevoked = (req: express.Request, token: jwt.Jwt | undefined) => boolean | Promise<boolean>;
 
 /**
+ * A function to check if a token is revoked
+ */
+export type ExpirationHandler = (req: express.Request, err: UnauthorizedError) => void | Promise<void>;
+
+/**
  * A function to customize how a token is retrieved from the express request.
  */
 export type TokenGetter = (req: express.Request) => string | Promise<string> | undefined;
@@ -62,7 +67,12 @@ export type Params = {
   /**
    * List of JWT algorithms allowed.
    */
-  algorithms: jwt.Algorithm[];
+  algorithms: jwt.Algorithm[],
+
+  /**
+   * Handle expired tokens.
+   */
+  onExpired?: ExpirationHandler,
 } & jwt.VerifyOptions;
 
 export { UnauthorizedError } from './errors/UnauthorizedError';
@@ -161,7 +171,12 @@ export const expressjwt = (options: Params) => {
       try {
         jwt.verify(token, key, options);
       } catch (err) {
-        throw new UnauthorizedError('invalid_token', err);
+        const wrappedErr = new UnauthorizedError('invalid_token', err);
+        if (err instanceof jwt.TokenExpiredError && typeof options.onExpired === 'function') {
+          await options.onExpired(req, wrappedErr);
+        } else {
+          throw wrappedErr;
+        }
       }
 
       const isRevoked = options.isRevoked && await options.isRevoked(req, decodedToken) || false;

@@ -158,6 +158,44 @@ describe('failure tests', function () {
     });
   });
 
+  it('should not throw if token is expired but the expired handler let it thru', function (done) {
+    const secret = 'shhhhhh';
+    const token = jwt.sign({ foo: 'bar', exp: 1382412921 }, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({
+      secret: 'shhhhhh',
+      algorithms: ['HS256'],
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onExpired: () => { },
+    })(req, res, function (err) {
+      assert.ok(!err);
+      assert.equal(req.auth.foo, 'bar');
+      done();
+    });
+  });
+
+  it('should throw if token is expired and the expired handler rethrows it', function (done) {
+    const secret = 'shhhhhh';
+    const token = jwt.sign({ foo: 'bar', exp: 1382412921 }, secret);
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({
+      secret: 'shhhhhh',
+      algorithms: ['HS256'],
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onExpired: (req, err) => { throw err; },
+    })(req, res, function (err) {
+      assert.ok(err);
+      assert.equal(err.code, 'invalid_token');
+      assert.equal(err.inner.name, 'TokenExpiredError');
+      assert.equal(err.message, 'jwt expired');
+      done();
+    });
+  });
+
   it('should throw if token issuer is wrong', function (done) {
     const secret = 'shhhhhh';
     const token = jwt.sign({ foo: 'bar', iss: 'http://foo' }, secret);
