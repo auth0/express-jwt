@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as jwt from 'jsonwebtoken';
 import * as express from 'express';
-import { expressjwt, UnauthorizedError, ExpressJwtRequest, GetVerificationKey } from '../src';
+import { expressjwt, UnauthorizedError, Request, GetVerificationKey } from '../src';
 import * as assert from 'assert';
 
 
@@ -279,7 +279,7 @@ describe('work tests', function () {
   it('should work if authorization header is valid jwt', function (done) {
     const secret = 'shhhhhh';
     const token = jwt.sign({ foo: 'bar' }, secret);
-    const req = {} as ExpressJwtRequest;
+    const req = {} as Request;
     const res = {} as express.Response;
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
@@ -292,7 +292,7 @@ describe('work tests', function () {
   it('should work if authorization header is valid with a buffer secret', function (done) {
     const secret = Buffer.from('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
     const token = jwt.sign({ foo: 'bar' }, secret);
-    const req = {} as ExpressJwtRequest;
+    const req = {} as Request;
     const res = {} as express.Response;
 
     req.headers = {};
@@ -306,7 +306,7 @@ describe('work tests', function () {
   it('should work if Authorization header is capitalized (lambda environment)', function (done) {
     const secret = Buffer.from('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'base64');
     const token = jwt.sign({ foo: 'bar' }, secret);
-    const req = {} as ExpressJwtRequest;
+    const req = {} as Request;
     const res = {} as express.Response;
 
     req.headers = {};
@@ -349,7 +349,7 @@ describe('work tests', function () {
   });
 
   it('should work with a custom getToken function', function (done) {
-    const req = {} as ExpressJwtRequest;
+    const req = {} as Request;
     const res = {} as express.Response;
     const secret = 'shhhhhh';
     const token = jwt.sign({ foo: 'bar' }, secret);
@@ -373,7 +373,7 @@ describe('work tests', function () {
   });
 
   it('should work with an async getToken function', function (done) {
-    const req = {} as ExpressJwtRequest;
+    const req = {} as Request;
     const res = {} as express.Response;
     const secret = 'shhhhhh';
     const token = jwt.sign({ foo: 'bar' }, secret);
@@ -397,10 +397,11 @@ describe('work tests', function () {
   });
 
   it('should work with a secretCallback function that accepts header argument', function (done) {
-    const req = {} as ExpressJwtRequest;
+    const req = {} as Request;
     const res = {} as express.Response;
     const secret = 'shhhhhh';
     const getSecret: GetVerificationKey = async (req, token) => {
+      // @ts-ignore
       assert.equal(token.header.alg, 'HS256');
       // @ts-ignore
       assert.equal(token.payload.foo, 'bar');

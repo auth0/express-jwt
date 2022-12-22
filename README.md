@@ -178,6 +178,19 @@ app.get(
 );
 ```
 
+### Secret rotation
+
+The getSecret callback could also be used in cases where the same issuer might issue tokens with different keys at certain point:
+
+```js
+var getSecret = async function (req, token) {
+  const { iss } = token.payload;
+  const { kid } = token.header;
+  // get the verification key by a given key-id and issuer.
+  return verificationKey;
+};
+```
+
 ### Revoked tokens
 
 It is possible that some tokens will need to be revoked so they cannot be used any longer. You can provide a function as the `isRevoked` option. The signature of the function is `function(req, payload, done)`:
