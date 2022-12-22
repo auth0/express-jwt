@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.2.0 - 2022-12-22
+
+- add an optional handler for expired tokens. closes #6048 ([ca6c90ccbb4b61b91f417a5dfa56f0b931b81528](https://github.com/auth0/express-jwt/commit/ca6c90ccbb4b61b91f417a5dfa56f0b931b81528)), closes [#6048](https://github.com/auth0/express-jwt/issues/6048)
+
 ## 8.1.0 - 2022-12-22
 
 - update type to match jwks-rsa ([bcad8af9cad82b3777cc38d1c05864a35f82bc53](https://github.com/auth0/express-jwt/commit/bcad8af9cad82b3777cc38d1c05864a35f82bc53))
