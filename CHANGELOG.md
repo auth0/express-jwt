@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.0.0 - 2022-12-22
+
+- Upgrade jsonwebtoken to v9. https://github.com/advisories/GHSA-27h2-hvpr-p74q .
+
 ## 7.7.3 - 2022-05-30
 
 - Fix tsc build error for express-unless ([e1fe1d264bc5363e008d23fea9d8c5d2ac0d8198](https://github.com/auth0/express-jwt/commit/e1fe1d264bc5363e008d23fea9d8c5d2ac0d8198))
