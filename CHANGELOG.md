@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.2.1 - 2022-12-26
+
+- add secret rotation example in readme. close #310 ([0000a44ed58aac97798007af19b0324f28acc436](https://github.com/auth0/express-jwt/commit/0000a44ed58aac97798007af19b0324f28acc436)), closes [#310](https://github.com/auth0/express-jwt/issues/310)
+- update @types/jsonwebtoken and fix deps in package-lock ([2322a9b67a5b5c716f953a53a0bb4bbc696d0a11](https://github.com/auth0/express-jwt/commit/2322a9b67a5b5c716f953a53a0bb4bbc696d0a11))
+
 ## 8.2.0 - 2022-12-22
 
 - add an optional handler for expired tokens. closes #6048 ([ca6c90ccbb4b61b91f417a5dfa56f0b931b81528](https://github.com/auth0/express-jwt/commit/ca6c90ccbb4b61b91f417a5dfa56f0b931b81528)), closes [#6048](https://github.com/auth0/express-jwt/issues/6048)
