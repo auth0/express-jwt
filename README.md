@@ -268,7 +268,7 @@ app.use(
 
 ## Typescript
 
-An `ExpressJwtRequest` type is provided which extends `express.Request` with the `auth` property.
+A `Request` type is provided from `express-jwt`, which extends `express.Request` with the `auth` property. It could be aliased, like how `JWTRequest` is below.
 
 ```typescript
 import { expressjwt, Request as JWTRequest } from "express-jwt";
