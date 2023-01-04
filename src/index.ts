@@ -1,6 +1,8 @@
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import * as express from 'express';
 import { unless } from 'express-unless';
+import set from 'lodash.set';
+
 import { UnauthorizedError } from './errors/UnauthorizedError';
 
 /**
@@ -123,7 +125,7 @@ export const expressjwt = (options: Params) => {
           .map(header => header.trim().toLowerCase())
           .includes('authorization');
         if (hasAuthInAccessControl) {
-          return next();
+          return setImmediate(next);
         }
       }
 
@@ -185,10 +187,10 @@ export const expressjwt = (options: Params) => {
       }
 
       const request = req as Request<jwt.JwtPayload | string>;
-      request[requestProperty] = decodedToken.payload;
-      next();
+      set(request, requestProperty, decodedToken.payload);
+      setImmediate(next);
     } catch (err) {
-      return next(err);
+      setImmediate(next, err);
     }
   };
 

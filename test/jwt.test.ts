@@ -2,7 +2,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as express from 'express';
 import { expressjwt, UnauthorizedError, Request, GetVerificationKey } from '../src';
-import * as assert from 'assert';
+import assert from 'assert';
 
 
 describe('failure tests', function () {
@@ -285,6 +285,21 @@ describe('work tests', function () {
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({ secret: secret, algorithms: ['HS256'] })(req, res, function () {
       assert.equal(req.auth.foo, 'bar');
+      done();
+    });
+  });
+
+  it('should work with custom and nested request property', function (done) {
+    const secret = 'shhhhhh';
+    const token = jwt.sign({ foo: 'bar' }, secret);
+    const req = {} as Request;
+    const res = {} as express.Response;
+    const requestProperty = 'auth.payload';
+
+    req.headers = {};
+    req.headers.authorization = 'Bearer ' + token;
+    expressjwt({ secret: secret, algorithms: ['HS256'], requestProperty })(req, res, function () {
+      assert.equal(req.auth.payload.foo, 'bar');
       done();
     });
   });
