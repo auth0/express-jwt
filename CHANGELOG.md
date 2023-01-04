@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file starting from version **v4.0.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.3.0 - 2023-01-04
+
+- requestProperty support for nested properties ([bbd3606ce68da2602733d6e4ac32564570753ca1](https://github.com/auth0/express-jwt/commit/bbd3606ce68da2602733d6e4ac32564570753ca1))
+- Update Typescript instructions in Readme.MD ([3c1d5cf8a08a6afbcfc78640b8cdb26fac8002ca](https://github.com/auth0/express-jwt/commit/3c1d5cf8a08a6afbcfc78640b8cdb26fac8002ca))
+
 ## 8.2.1 - 2022-12-26
 
 - add secret rotation example in readme. close #310 ([0000a44ed58aac97798007af19b0324f28acc436](https://github.com/auth0/express-jwt/commit/0000a44ed58aac97798007af19b0324f28acc436)), closes [#310](https://github.com/auth0/express-jwt/issues/310)
