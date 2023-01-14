@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import * as express from 'express';
 import { unless } from 'express-unless';
-import set from 'lodash.set';
+import set from 'lodash/set';
 
 import { UnauthorizedError } from './errors/UnauthorizedError';
 
