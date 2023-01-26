@@ -4,7 +4,7 @@
     "allowJs": true,
     "target": "es5",
     "declaration": true,
-    "esModuleInterop": true
+    "esModuleInterop": false
   },
   "include": [
     "./src/**/*"

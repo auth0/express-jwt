@@ -12,8 +12,8 @@ describe('revoked jwts', function () {
     secret: secret,
     algorithms: ['HS256'],
     isRevoked: async (req, token) => {
-      const isRevoked = typeof token.payload !== 'string' &&
-        token.payload.jti === revoked_id;
+      const isRevoked = typeof token?.payload !== 'string' &&
+        token?.payload.jti === revoked_id;
       return isRevoked;
     }
   });

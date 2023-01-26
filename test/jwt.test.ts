@@ -2,7 +2,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as express from 'express';
 import { expressjwt, UnauthorizedError, Request, GetVerificationKey } from '../src';
-import assert from 'assert';
+import * as assert from 'assert';
 
 
 describe('failure tests', function () {
@@ -171,6 +171,7 @@ describe('failure tests', function () {
       onExpired: () => { },
     })(req, res, function (err) {
       assert.ok(!err);
+      //@ts-ignore
       assert.equal(req.auth.foo, 'bar');
       done();
     });
@@ -284,7 +285,7 @@ describe('work tests', function () {
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({ secret: secret, algorithms: ['HS256'] })(req, res, function () {
-      assert.equal(req.auth.foo, 'bar');
+      assert.equal(req.auth?.foo, 'bar');
       done();
     });
   });
@@ -299,7 +300,7 @@ describe('work tests', function () {
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({ secret: secret, algorithms: ['HS256'], requestProperty })(req, res, function () {
-      assert.equal(req.auth.payload.foo, 'bar');
+      assert.equal(req.auth?.payload.foo, 'bar');
       done();
     });
   });
@@ -313,7 +314,7 @@ describe('work tests', function () {
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({ secret: secret, algorithms: ['HS256'] })(req, res, function () {
-      assert.equal(req.auth.foo, 'bar');
+      assert.equal(req.auth?.foo, 'bar');
       done();
     });
   });
@@ -328,7 +329,7 @@ describe('work tests', function () {
     req.headers.Authorization = 'Bearer ' + token;
     expressjwt({ secret: secret, algorithms: ['HS256'] })(req, res, function (err) {
       if (err) { return done(err); }
-      assert.equal(req.auth.foo, 'bar');
+      assert.equal(req.auth?.foo, 'bar');
       done();
     });
   });
@@ -382,7 +383,7 @@ describe('work tests', function () {
       algorithms: ['HS256'],
       getToken: getTokenFromQuery
     })(req, res, function () {
-      assert.equal(req.auth.foo, 'bar');
+      assert.equal(req.auth?.foo, 'bar');
       done();
     });
   });
@@ -406,7 +407,7 @@ describe('work tests', function () {
       algorithms: ['HS256'],
       getToken: getTokenFromQuery
     })(req, res, function () {
-      assert.equal(req.auth.foo, 'bar');
+      assert.equal(req.auth?.foo, 'bar');
       done();
     });
   });
@@ -428,7 +429,7 @@ describe('work tests', function () {
     req.headers = {};
     req.headers.authorization = 'Bearer ' + token;
     expressjwt({ secret: getSecret, algorithms: ['HS256'] })(req, res, function () {
-      assert.equal(req.auth.foo, 'bar');
+      assert.equal(req.auth?.foo, 'bar');
       done();
     });
   });
