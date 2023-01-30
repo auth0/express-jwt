@@ -227,7 +227,10 @@ describe('failure tests', function () {
     const secret = "shhh";
     const token = jwt.sign({ foo: 'bar', iss: 'http://www' }, secret);
     // manipulate the token
-    const newContent = Buffer.from("{foo: 'bar', edg: 'ar'}").toString('base64');
+    const newContent = Buffer
+      .from('{"foo": "bar", "edg": "ar"}')
+      .toString('base64')
+      .replace(/=/g, '');
     const splitetToken = token.split(".");
     splitetToken[1] = newContent;
     const newToken = splitetToken.join(".");
@@ -238,7 +241,7 @@ describe('failure tests', function () {
     expressjwt({ secret: secret, algorithms: ['HS256'] })(req, res, function (err) {
       assert.ok(err);
       assert.equal(err.code, 'invalid_token');
-      assert.equal(err.message, 'invalid token');
+      assert.equal(err.message, 'invalid signature');
       done();
     });
   });
