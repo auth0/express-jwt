@@ -125,7 +125,8 @@ export const expressjwt = (options: Params) => {
           .map(header => header.trim().toLowerCase())
           .includes('authorization');
         if (hasAuthInAccessControl) {
-          return setImmediate(next);
+          setImmediate(next);
+          return;
         }
       }
 
