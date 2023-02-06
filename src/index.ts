@@ -171,7 +171,7 @@ export const expressjwt = (options: Params) => {
       const key = await getVerificationKey(req, decodedToken);
 
       try {
-        jwt.verify(token, key, options);
+        await jwt.verify(token, key, options);
       } catch (err) {
         const wrappedErr = new UnauthorizedError('invalid_token', err);
         if (err instanceof jwt.TokenExpiredError && typeof options.onExpired === 'function') {
