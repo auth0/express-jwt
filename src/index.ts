@@ -160,12 +160,9 @@ export const expressjwt = (options: Params) => {
         }
       }
 
-      let decodedToken: jwt.Jwt;
-
-      try {
-        decodedToken = jwt.decode(token, { complete: true });
-      } catch (err) {
-        throw new UnauthorizedError('invalid_token', err);
+      const decodedToken = jwt.decode(token, { complete: true });
+      if (!decodedToken) {
+        throw new UnauthorizedError('invalid_token', { message: 'The token could not be decoded.' });
       }
 
       const key = await getVerificationKey(req, decodedToken);
