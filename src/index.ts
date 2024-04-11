@@ -52,6 +52,15 @@ export type Params = {
   isRevoked?: IsRevoked,
 
   /**
+   * If set to true, continue to the next middleware when the
+   * request doesn't include a token, or the token is invalid,
+   * or the token is expired, or the token is revoked, without failing.
+   *
+   * @default false
+   */
+  optionalToken?: boolean,
+
+  /**
    * If sets to true, continue to the next middleware when the
    * request doesn't include a token without failing.
    *
@@ -114,6 +123,7 @@ export const expressjwt = (options: Params) => {
       async () => options.secret as jwt.Secret;
 
   const credentialsRequired = typeof options.credentialsRequired === 'undefined' ? true : options.credentialsRequired;
+  const optionalToken = typeof options.optionalToken === 'undefined' ? false : options.optionalToken;
   const requestProperty = typeof options.requestProperty === 'string' ? options.requestProperty : 'auth';
 
   const middleware = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -141,19 +151,26 @@ export const expressjwt = (options: Params) => {
           if (/^Bearer$/i.test(scheme)) {
             token = credentials;
           } else {
-            if (credentialsRequired) {
+            if (optionalToken) {
+              return next();
+            } else if (credentialsRequired) {
               throw new UnauthorizedError('credentials_bad_scheme', { message: 'Format is Authorization: Bearer [token]' });
             } else {
               return next();
             }
           }
         } else {
+          if (optionalToken) {
+            return next();
+          }
           throw new UnauthorizedError('credentials_bad_format', { message: 'Format is Authorization: Bearer [token]' });
         }
       }
 
       if (!token) {
-        if (credentialsRequired) {
+        if (optionalToken) {
+          return next();
+        } else if (credentialsRequired) {
           throw new UnauthorizedError('credentials_required', { message: 'No authorization token was found' });
         } else {
           return next();
@@ -165,6 +182,9 @@ export const expressjwt = (options: Params) => {
       try {
         decodedToken = jwt.decode(token, { complete: true });
       } catch (err) {
+        if (optionalToken) {
+          return next();
+        }
         throw new UnauthorizedError('invalid_token', err);
       }
 
@@ -176,13 +196,13 @@ export const expressjwt = (options: Params) => {
         const wrappedErr = new UnauthorizedError('invalid_token', err);
         if (err instanceof jwt.TokenExpiredError && typeof options.onExpired === 'function') {
           await options.onExpired(req, wrappedErr);
-        } else {
+        } else if (!optionalToken) {
           throw wrappedErr;
         }
       }
 
       const isRevoked = options.isRevoked && await options.isRevoked(req, decodedToken) || false;
-      if (isRevoked) {
+      if (isRevoked && !optionalToken) {
         throw new UnauthorizedError('revoked_token', { message: 'The token has been revoked.' });
       }
 
