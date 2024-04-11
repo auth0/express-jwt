@@ -218,5 +218,3 @@ export const expressjwt = (options: Params) => {
 
   return middleware;
 }
-
-
