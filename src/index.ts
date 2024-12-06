@@ -116,7 +116,7 @@ export const expressjwt = (options: Params) => {
   const credentialsRequired = typeof options.credentialsRequired === 'undefined' ? true : options.credentialsRequired;
   const requestProperty = typeof options.requestProperty === 'string' ? options.requestProperty : 'auth';
 
-  const middleware = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+  const middleware = async function (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     let token: string;
     try {
       if (req.method === 'OPTIONS' && 'access-control-request-headers' in req.headers) {
@@ -125,7 +125,8 @@ export const expressjwt = (options: Params) => {
           .map(header => header.trim().toLowerCase())
           .includes('authorization');
         if (hasAuthInAccessControl) {
-          return setImmediate(next);
+          setImmediate(next);
+          return;
         }
       }
 
