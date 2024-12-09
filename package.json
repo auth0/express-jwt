@@ -30,6 +30,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
+    "README.md",
     "/dist"
   ],
   "dependencies": {
