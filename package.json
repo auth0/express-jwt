@@ -1,6 +1,6 @@
 {
   "name": "express-jwt",
-  "version": "8.4.1",
+  "version": "8.5.1",
   "description": "JWT authentication middleware.",
   "keywords": [
     "auth",
@@ -30,6 +30,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
+    "README.md",
     "/dist"
   ],
   "dependencies": {
