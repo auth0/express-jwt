@@ -1,0 +1,22 @@
+{
+  "branches": ["master"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": true,
+        "pkgRoot": "."
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "verifyReleaseCmd": "ARTIFACT=\"$(pwd)/$(npm pack --ignore-scripts | tail -1)\" && rl-wrapper --artifact \"$ARTIFACT\" --name express-jwt --version ${nextRelease.version} --repository $GITHUB_REPOSITORY --commit $GITHUB_SHA --build-env github_actions --suppress-output",
+        "prepareCmd": "git diff --exit-code -- package.json"
+      }
+    ],
+    "@semantic-release/github"
+  ]
+}
