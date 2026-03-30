@@ -48,6 +48,7 @@
     "@commitlint/config-conventional": "^20.3.1",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
+    "conventional-changelog-conventionalcommits": "^9.3.0",
     "eslint": "^8.11.0",
     "express": "^4.17.3",
     "husky": "^9.1.7",
