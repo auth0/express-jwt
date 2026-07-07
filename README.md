@@ -35,7 +35,7 @@ Basic usage using an HS256 secret:
 ```javascript
 var { expressjwt: jwt } = require("express-jwt");
 // or ES6
-// import { expressjwt, ExpressJwtRequest } from "express-jwt";
+// import { expressjwt } from "express-jwt";
 
 app.get(
   "/protected",
