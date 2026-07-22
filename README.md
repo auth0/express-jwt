@@ -155,7 +155,7 @@ If you need to obtain the key dynamically from other sources, you can pass a fun
 For example, if the secret varies based on the [issuer](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#issDef):
 
 ```javascript
-var jwt = require("express-jwt");
+var { expressjwt: jwt } = require("express-jwt");
 var data = require("./data");
 var utilities = require("./utilities");
 
@@ -201,7 +201,7 @@ It is possible that some tokens will need to be revoked so they cannot be used a
 For example, if the `(iss, jti)` claim pair is used to identify a JWT:
 
 ```javascript
-const jwt = require("express-jwt");
+const { expressjwt: jwt } = require("express-jwt");
 const data = require("./data");
 
 const isRevokedCallback = async (req, token) => {
